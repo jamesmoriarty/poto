@@ -1,5 +1,4 @@
 require "poto/version"
+require "poto/api"
 
-module Poto
-  # Your code goes here...
-end
+module Poto; end

@@ -28,4 +28,12 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.9"
   spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "pry"
+
+  spec.add_dependency "grape"
+  spec.add_dependency "roar"
+  spec.add_dependency "grape-roar"
+  spec.add_dependency "rack-hal_browser"
+  spec.add_dependency "hal-index"
+  spec.add_dependency "aws-sdk", "~> 2"
 end
