@@ -6,7 +6,7 @@ module Poto
       URI::HTTP.build(
         host:  request.host,
         port:  request.port,
-        path:  path,
+        path:  File.join(opts[:env]["SCRIPT_NAME"], path),
         query: query.to_param
       ).to_s.gsub(/\?$/, "")
     end

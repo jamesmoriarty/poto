@@ -5,6 +5,6 @@ require "poto"
 
 use Rack::HalBrowser::Redirect
 
-run HAL::Index.new(self: { href: "/", app: Poto::API, title: "Index" })
+run HAL::Index.new(self: { href: "/api", app: Poto::API, title: "Index" })
 
-HAL::Index.register_rel "files", href: "/files", title: "Files"
+HAL::Index.register_rel "files", href: "/api/files", title: "Files"
