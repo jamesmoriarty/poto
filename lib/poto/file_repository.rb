@@ -1,14 +1,10 @@
-require "poto/s3_lazy_proxy"
+require "poto/file_repository/s3_proxy"
 
 module Poto
-
   class FileRepository
-    class Files < Struct.new(:files, :page, :next_page); end
-    class File < Struct.new(:name, :size, :file_url); end
-
     class << self
       def proxy
-        S3LazyProxy.new
+        S3Proxy.new
       end
 
       delegate :page, :per_page, :query, to: :proxy
