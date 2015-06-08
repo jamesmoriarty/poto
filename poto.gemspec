@@ -30,6 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "pry"
 
+  spec.add_dependency "sinatra"
   spec.add_dependency "grape"
   spec.add_dependency "roar"
   spec.add_dependency "grape-roar"

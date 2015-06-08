@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <section class=poto />
+
+  <style>
+    body {
+      margin:           0;
+      background-color: #111;
+    }
+
+    .poto {
+      line-height: 0;
+    }
+
+    .poto a {
+      display:     inline-block;
+      width:       25%;
+      padding-top: 25%;
+      overflow:    hidden;
+      outline:     1px;
+
+      background-position: 50% 50%;
+      background-repeat:   no-repeat;
+    }
+  </style>
+
+  <script>
+    var e = document.querySelector('.poto');
+
+    function poto(e, page) {
+      var request = new XMLHttpRequest();
+
+      request.open("GET", page, true);
+
+      request.onload = function() {
+        if (request.status >= 200 && request.status < 400) {
+          var json  = JSON.parse(request.response)
+          page      = json._links.next.href;
+
+          json._embedded.files.forEach(function(file, i) {
+            var thumb                   = document.createElement("a");
+            thumb.href                  = file._links.file.href;
+            thumb.style.backgroundImage = "url(/ajax-loader.gif)";
+
+            image = new Image();
+            image.onload = function() {
+              thumb.style.backgroundImage = "url(" + this.src + ")";
+            };
+            image.onerror = function() {
+              thumb.parentNode.removeChild(thumb);
+            };
+            image.src = file._links.file.href;
+
+            e.appendChild(thumb);
+          });
+
+          window.onscroll = function(event) {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - window.innerHeight * 0.25) {
+              window.onscroll = null;
+              poto(e, page);
+            }
+          };
+        } else {
+          // request error
+        }
+      };
+
+      request.onerror = function() {
+        // connection error
+      };
+
+      request.send();
+    }
+
+    // main
+    poto(e, "/api/files");
+  </script>
+</body>
+</html>
