@@ -13,4 +13,4 @@ app = Rack::Builder.new do
   run HAL::Index.new(self: { href: "/api", app: Poto::API, title: "Index" })
 end
 
-Rack::Server.start(app: app)
+Rack::Server.start(app: app, Port: ENV.fetch("PORT", 9292))
