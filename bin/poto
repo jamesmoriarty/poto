@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "rack"
+require "rack/hal_browser"
+require "hal/index"
+require "poto"
+
+app = Rack::Builder.new do
+  use Poto::App
+  use Rack::HalBrowser::Redirect
+  HAL::Index.register_rel("files", href: "/api/files", title: "Files")
+  run HAL::Index.new(self: { href: "/api", app: Poto::API, title: "Index" })
+end
+
+Rack::Server.start(app: app)
