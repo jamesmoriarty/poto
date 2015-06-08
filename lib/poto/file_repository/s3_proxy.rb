@@ -5,6 +5,11 @@ module Poto
   class FileRepository
     class S3Proxy
       attr_writer :page, :per_page, :query
+      attr_reader :bucket
+
+      def initialize(bucket)
+        @bucket = bucket
+      end
 
       def page(page)
         tap do |proxy|
@@ -33,10 +38,6 @@ module Poto
         )
 
         FilesMapper.new(response, bucket)
-      end
-
-      def bucket
-        ENV["AWS_S3_BUCKET"]
       end
     end
   end
