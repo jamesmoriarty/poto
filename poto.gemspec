@@ -9,9 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["James Moriarty"]
   spec.email         = ["james.moriarty@rea-group.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{AWS S3 image gallery.}
+  spec.homepage      = "https://github.com/jamesmoriarty/poto"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
   # delete this section to allow pushing this gem to any host.
@@ -30,11 +29,11 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "pry"
 
-  spec.add_dependency "sinatra"
-  spec.add_dependency "grape"
-  spec.add_dependency "roar"
-  spec.add_dependency "grape-roar"
-  spec.add_dependency "rack-hal_browser"
-  spec.add_dependency "hal-index"
-  spec.add_dependency "aws-sdk", "~> 2"
+  spec.add_dependency "sinatra",          "~> 1"
+  spec.add_dependency "grape",            "~> 0.11"
+  spec.add_dependency "roar",             "~> 1"
+  spec.add_dependency "grape-roar",       "~> 0.3"
+  spec.add_dependency "rack-hal_browser", "~> 0.3"
+  spec.add_dependency "hal-index",        "~> 0.0.9"
+  spec.add_dependency "aws-sdk",          "~> 2"
 end
