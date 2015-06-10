@@ -2,15 +2,10 @@
 
 require "bundler/setup"
 require "rack"
-require "rack/hal_browser"
-require "hal/index"
-require "poto"
 
-app = Rack::Builder.new do
-  use Poto::App
-  use Rack::HalBrowser::Redirect
-  HAL::Index.register_rel("files", href: "/api/files", title: "Files")
-  run HAL::Index.new(self: { href: "/api", app: Poto::API, title: "Index" })
-end
+app, options = Rack::Builder.parse_file(File.expand_path("../../config.ru", __FILE__))
 
-Rack::Server.start(app: app, Port: ENV.fetch("PORT", 9292))
+Rack::Server.start(
+  app:  app,
+  Port: ENV.fetch("PORT", 9292)
+)

@@ -26,6 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "roar",             "~> 1"
   spec.add_dependency "grape-roar",       "~> 0.3"
   spec.add_dependency "rack-hal_browser", "~> 0.3"
-  spec.add_dependency "hal-index",        "~> 0.0.9"
   spec.add_dependency "aws-sdk",          "~> 2"
 end
