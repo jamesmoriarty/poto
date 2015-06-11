@@ -39,20 +39,21 @@
           page      = json._links.next.href;
 
           json._embedded.files.forEach(function(file, i) {
-            var thumb                   = document.createElement("a");
-            thumb.href                  = file._links.file.href;
-            thumb.style.backgroundImage = "url(/ajax-loader.gif)";
+            var link                   = document.createElement("a");
+            link.href                  = file._links.file.href;
+            link.target                = "_blank"
+            link.style.backgroundImage = "url(/ajax-loader.gif)";
 
             image = new Image();
             image.onload = function() {
-              thumb.style.backgroundImage = "url(" + this.src + ")";
+              link.style.backgroundImage = "url(" + this.src + ")";
             };
             image.onerror = function() {
-              thumb.parentNode.removeChild(thumb);
+              link.parentNode.removeChild(link);
             };
-            image.src = file._links.file.href;
+            image.src = file._links.proxy.href;
 
-            e.appendChild(thumb);
+            e.appendChild(link);
           });
 
           window.onscroll = function(event) {

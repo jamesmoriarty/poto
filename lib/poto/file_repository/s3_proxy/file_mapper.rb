@@ -18,6 +18,10 @@ module Poto
           object.size
         end
 
+        def proxy_url
+          "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?url=#{CGI.escape(file_url)}&container=focus&resize_w=500&resize_h=500&refresh=2592000"
+        end
+
         def file_url
           Aws::S3::Object.new(bucket, object.key).presigned_url(:get, expires_in: 3600)
         end
