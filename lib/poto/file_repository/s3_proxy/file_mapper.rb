@@ -19,7 +19,7 @@ module Poto
         end
 
         def proxy_url
-          "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?url=#{CGI.escape(file_url)}&container=focus&resize_w=500&resize_h=500&refresh=2592000"
+          "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?url=#{CGI.escape(file_url)}&container=focus&resize_w=500&refresh=2592000"
         end
 
         def file_url
