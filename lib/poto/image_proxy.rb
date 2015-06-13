@@ -22,7 +22,7 @@ module Poto
 
       def download(url)
         Tempfile.new('proxy').tap do |file|
-          open(src, "rb") do |src|
+          open(url, "rb") do |src|
             file.write(src.read)
           end
           file.close
