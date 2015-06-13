@@ -51,7 +51,7 @@
             image.onerror = function() {
               link.parentNode.removeChild(link);
             };
-            image.src = file._links.proxy.href;
+            image.src = "/image_proxy?width=500&height=500&src=" + encodeURIComponent(link.href)
 
             e.appendChild(link);
           });

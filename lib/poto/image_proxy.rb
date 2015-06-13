@@ -9,7 +9,7 @@ module Poto
 
     helpers do
       def src
-        CGI.unescape(params["src"])
+        params["src"]
       end
 
       def width

@@ -13,10 +13,6 @@ module Poto
     property :name
     property :size
 
-    link :proxy do
-      proxy_url
-    end
-
     link :file do
       file_url
     end

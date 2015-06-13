@@ -18,10 +18,6 @@ module Poto
           object.size
         end
 
-        def proxy_url
-          "/image_proxy?" + { src: CGI.escape(file_url), width: 500, height: 500 }.to_param
-        end
-
         def file_url
           Aws::S3::Object.new(bucket, object.key).presigned_url(:get, expires_in: 3600)
         end
