@@ -1,9 +1,9 @@
 require "aws-sdk"
-require "poto/file_repository/s3_proxy/files_mapper"
+require "poto/file_repository/s3_repository/files_mapper"
 
 module Poto
   class FileRepository
-    class S3Proxy
+    class S3Repository
       attr_writer :page, :per_page, :query
       attr_reader :bucket
 

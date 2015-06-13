@@ -1,8 +1,8 @@
-require "poto/file_repository/s3_proxy/file_mapper"
+require "poto/file_repository/s3_repository/file_mapper"
 
 module Poto
   class FileRepository
-    class S3Proxy
+    class S3Repository
       class FilesMapper
         attr_reader :objects, :bucket
 

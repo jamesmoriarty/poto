@@ -4,7 +4,7 @@ require "open-uri"
 require "mini_magick"
 
 module Poto
-  class Proxy < Sinatra::Base
+  class ImageProxy < Sinatra::Base
     set :public_folder, File.join(File.dirname(__FILE__), "..", "..", "public")
 
     helpers do

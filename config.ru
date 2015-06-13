@@ -5,8 +5,8 @@ map("/") do
   run Poto::App
 end
 
-map("/proxy") do
-  run Poto::Proxy
+map("/image_proxy") do
+  run Poto::ImageProxy
 end
 
 map("/api") do

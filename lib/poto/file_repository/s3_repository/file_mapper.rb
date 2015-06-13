@@ -1,7 +1,7 @@
 require "aws-sdk"
 module Poto
   class FileRepository
-    class S3Proxy
+    class S3Repository
       class FileMapper
         attr_reader :object, :bucket
 
@@ -19,7 +19,7 @@ module Poto
         end
 
         def proxy_url
-          "/proxy?" + { src: CGI.escape(file_url), width: 500, height: 500 }.to_param
+          "/image_proxy?" + { src: CGI.escape(file_url), width: 500, height: 500 }.to_param
         end
 
         def file_url

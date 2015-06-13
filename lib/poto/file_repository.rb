@@ -1,10 +1,10 @@
-require "poto/file_repository/s3_proxy"
+require "poto/file_repository/s3_repository"
 
 module Poto
   class FileRepository
     class << self
       def proxy
-        S3Proxy.new(ENV["AWS_S3_BUCKET"])
+        S3Repository.new(ENV["AWS_S3_BUCKET"])
       end
 
       delegate :page, :per_page, :query, to: :proxy
