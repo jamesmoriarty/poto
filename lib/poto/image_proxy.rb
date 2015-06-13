@@ -8,42 +8,39 @@ module Poto
     set :public_folder, File.join(File.dirname(__FILE__), "..", "..", "public")
 
     helpers do
-      def params
-        request.env['rack.request.query_hash']
-      end
-
       def src
         CGI.unescape(params["src"])
       end
 
       def width
-        params.fetch("width", nil).to_i
+        params["width"].to_i
       end
 
       def height
-        params.fetch("height", nil).to_i
+        params["height"].to_i
+      end
+
+      def download(url)
+        Tempfile.new('proxy').tap do |file|
+          open(src, "rb") do |src|
+            file.write(src.read)
+          end
+          file.close
+        end.path
+      end
+
+      def resize(path, height, width)
+        image = MiniMagick::Image.open(path)
+        image.resize([width, height].compact.join(?x))
+        image.format("png")
+        image.write(path)
       end
     end
 
     get("/") do
-      # download src
-
-      file = Tempfile.new('proxy')
-      open(src, "rb") do |src|
-        file.write(src.read)
-      end
-      file.close
-
-      # resize src
-
-      image = MiniMagick::Image.open(file.path)
-      image.resize [width, height].compact.join(?x)
-      image.format "png"
-      image.write file.path
-
-      # stream
-
-      send_file file.path
+      path = download(src)
+      resize(path, height, width)
+      send_file(path)
     end
   end
 end
