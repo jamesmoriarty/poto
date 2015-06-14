@@ -27,5 +27,4 @@ Gem::Specification.new do |spec|
   spec.add_dependency "grape-roar",       "~> 0.3"
   spec.add_dependency "aws-sdk",          "~> 2"
   spec.add_dependency "mini_magick"
-  spec.add_dependency "puma"
 end
