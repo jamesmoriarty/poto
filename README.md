@@ -2,7 +2,7 @@
 
 # Poto
 
-AWS S3 image gallery.
+Turn your AWS S3 bucket into an image gallery. Example: https://aqueous-cliffs-6127.herokuapp.com/
 
 ## Poto::ImageProxy
 
