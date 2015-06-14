@@ -18,7 +18,7 @@ module Poto
     end
 
     link :next do |opts|
-      url_for opts, "/files", page: next_page
+      url_for opts, "/files", page: next_page if next_page
     end
   end
 end

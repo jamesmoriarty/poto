@@ -22,7 +22,7 @@ module Poto
         end
 
         def next_page
-          files.last.name
+          files.last.try(:name)
         end
       end
     end
