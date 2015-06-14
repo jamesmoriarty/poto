@@ -4,6 +4,23 @@
 
 AWS S3 image gallery.
 
+## Poto::ImageProxy
+
+The image resizing proxy is rack middleware and can be used standalone.
+
+```ruby
+require 'poto'
+
+# * width  - max width in pixels
+# * height - max height in pixels
+# * src    - source image url
+#
+# @example
+#
+# ?width=250&height=250&src=http%3A%2F%2Fexample.com%2Fimage.png
+run Poto::ImageProxy
+```
+
 ## Installation
 
     $ gem install poto

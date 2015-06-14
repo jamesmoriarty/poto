@@ -16,7 +16,7 @@ module Poto
     end
 
     def current_per_page
-      params.fetch(:per_page, 8).to_i
+      params.fetch(:per_page, 25).to_i
     end
   end
 end
