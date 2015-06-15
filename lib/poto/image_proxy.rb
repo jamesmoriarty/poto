@@ -1,5 +1,6 @@
 require "sinatra"
 require "tempfile"
+require "tmpdir"
 require "open-uri"
 require "mini_magick"
 require "digest"
@@ -21,30 +22,39 @@ module Poto
         params["height"].to_i
       end
 
-      def download(url)
-        Tempfile.new(self.class.name).tap do |file|
-          open(url, "rb") do |src|
-            file.write(src.read)
+      def download(uri)
+        Tempfile.new(self.class.name).tap do |dst|
+          open(uri, "rb") do |src|
+            dst.write(src.read)
           end
 
-          file.close
+          dst.close
         end.path
       end
 
       def resize(path, height, width)
-        image = MiniMagick::Image.open(path)
-        image.resize([width, height].compact.join(?x))
-        image.format("png")
-        image.write(path)
+        MiniMagick::Image.open(path).tap do |image|
+          image.resize([width, height].compact.join(?x))
+          image.format("png")
+          image.write(path)
+        end.path
+      end
+
+      def cache(key, &set)
+        File.join(Dir.tmpdir, Digest::SHA256.hexdigest(key)).tap do |cache_path|
+          unless File.exists?(cache_path)
+            FileUtils.mv(set.call, cache_path)
+          end
+        end
       end
     end
 
     get("/") do
-      etag Digest::SHA256.hexdigest("#{src.path}#{width}#{height}"), kind: :weak
+      src_path = cache(src.path) { download(src) }
+      dst_path = cache("#{src_path}#{width}x#{height}") { resize(src_path, height, width) }
 
-      path = download(src)
-      resize(path, height, width)
-      send_file path
+      etag Digest::SHA256.hexdigest(dst_path), kind: :weak
+      send_file dst_path
     end
   end
 end
