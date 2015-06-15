@@ -2,6 +2,7 @@ require "sinatra"
 require "tempfile"
 require "open-uri"
 require "mini_magick"
+require "digest"
 
 module Poto
   class ImageProxy < Sinatra::Base
@@ -9,7 +10,7 @@ module Poto
 
     helpers do
       def src
-        params["src"]
+        URI(params["src"])
       end
 
       def width
@@ -36,29 +37,14 @@ module Poto
         image.format("png")
         image.write(path)
       end
-
-      def file_cache(url, &block)
-        path       = URI(url).path
-        dir        = File.dirname(path)
-        cache_path = File.join(settings.public_dir, "cache", URI.unescape(path))
-
-        unless File.exists?(cache_path)
-          FileUtils.mkdir_p(File.join(settings.public_dir, "cache", dir))
-          FileUtils.mv(yield, cache_path)
-        end
-
-        File.join("cache", path)
-      end
     end
 
     get("/") do
-      redirect to(
-        file_cache(src) do
-          download(src).tap do |path|
-            resize(path, height, width)
-          end
-        end
-      )
+      etag Digest::SHA256.hexdigest("#{src.path}#{width}#{height}")
+
+      path = download(src)
+      resize(path, height, width)
+      send_file path
     end
   end
 end
