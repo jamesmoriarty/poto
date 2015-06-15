@@ -40,7 +40,7 @@ module Poto
     end
 
     get("/") do
-      etag Digest::SHA256.hexdigest("#{src.path}#{width}#{height}")
+      etag Digest::SHA256.hexdigest("#{src.path}#{width}#{height}"), kind: :weak
 
       path = download(src)
       resize(path, height, width)
