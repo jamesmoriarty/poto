@@ -1,9 +1,10 @@
 require "sinatra"
 require "tempfile"
 require "tmpdir"
-require "open-uri"
-require "mini_magick"
 require "digest"
+require "poto/download"
+require "poto/file_cache"
+require "poto/resize"
 
 module Poto
   class ImageProxy < Sinatra::Base
@@ -22,30 +23,16 @@ module Poto
         params["height"].to_i
       end
 
-      def download(uri)
-        Tempfile.new(self.class.name).tap do |dst|
-          open(uri, "rb") do |src|
-            dst.write(src.read)
-          end
+      def cache(key, &set)
+        FileCache.new(path: Dir.tmpdir).cache(key, &set)
+      end
 
-          dst.close
-        end.path
+      def download(uri)
+        Download.new(file: Tempfile.new(self.class.name), uri: uri).call
       end
 
       def resize(path, height, width)
-        MiniMagick::Image.open(path).tap do |image|
-          image.resize([width, height].compact.join(?x))
-          image.format("png")
-          image.write(path)
-        end.path
-      end
-
-      def cache(key, &set)
-        File.join(Dir.tmpdir, Digest::SHA256.hexdigest(key)).tap do |cache_path|
-          unless File.exists?(cache_path)
-            FileUtils.mv(set.call, cache_path)
-          end
-        end
+        Resize.new(path: path, height: height, width: width).call
       end
     end
 
