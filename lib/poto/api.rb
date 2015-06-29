@@ -9,7 +9,7 @@ module Poto
   class API < Grape::API
     helpers UrlHelper
 
-    content_type :json, 'application/hal+json'
+    content_type :json, "application/hal+json"
     format       :json
     formatter    :json, Grape::Formatter::Roar
 
