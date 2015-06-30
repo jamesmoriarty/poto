@@ -1,4 +1,5 @@
 require "aws-sdk"
+
 module Poto
   class FileRepository
     class S3Repository

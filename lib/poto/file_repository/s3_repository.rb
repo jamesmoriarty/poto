@@ -11,7 +11,7 @@ module Poto
       end
 
       def call(query:, page:, per_page:)
-        response = Aws::S3::Client.new.list_objects(
+        response = client.list_objects(
           bucket:   bucket,
           marker:   page,
           max_keys: per_page,
@@ -19,6 +19,12 @@ module Poto
         )
 
         FilesMapper.new(response, bucket)
+      end
+
+      private
+
+      def client
+        Aws::S3::Client.new
       end
     end
   end
