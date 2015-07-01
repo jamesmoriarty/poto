@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    poto (0.5.0)
+    poto (0.6.0)
       aws-sdk (~> 2)
       grape (~> 0.11)
       grape-roar (~> 0.3)
