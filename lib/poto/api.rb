@@ -15,13 +15,7 @@ module Poto
 
     resource :files do
       get do
-        present FileRepository.query(params[:query]).page(current_page).per_page(current_per_page).call, with: FilesRepresenter
-      end
-
-      route_param :id do
-        get do
-          present FileRepository.find(params[:id]), with: FileRepresenter
-        end
+        present FileRepository.prefix(params[:prefix]).page(current_page).per_page(current_per_page).call, with: FilesRepresenter
       end
     end
   end

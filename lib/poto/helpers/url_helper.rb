@@ -4,10 +4,10 @@ module Poto
       request = Grape::Request.new(opts[:env])
 
       URI::Generic.build(
-        host:   request.host,
-        port:   request.port,
-        path:   File.join(opts[:env]["SCRIPT_NAME"], path),
-        query:  query.to_param
+        host:  request.host,
+        port:  request.port,
+        path:  File.join(opts[:env]["SCRIPT_NAME"], path),
+        query: query.to_param
       ).to_s.gsub(/\?$/, "")
     end
 

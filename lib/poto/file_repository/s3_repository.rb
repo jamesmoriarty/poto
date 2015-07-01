@@ -10,12 +10,12 @@ module Poto
         @bucket = bucket
       end
 
-      def call(query:, page:, per_page:)
+      def call(prefix:, page:, per_page:)
         response = client.list_objects(
           bucket:   bucket,
           marker:   page,
           max_keys: per_page,
-          prefix:   query,
+          prefix:   prefix,
         )
 
         FilesMapper.new(response, bucket)

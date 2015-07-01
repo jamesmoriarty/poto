@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-  <input type="text" class="poto-search" placeholder="Search">
+  <input type="text" class="poto-prefix" placeholder="filter by prefix...">
   <section class=poto>
 
   </section>
@@ -12,7 +12,7 @@
       background-color: #111;
     }
 
-    .poto-search {
+    .poto-prefix {
       width:       100%;
       line-height: 3em;
       font-size:   2.5em;
@@ -89,12 +89,12 @@
     var container = document.querySelector('.poto');
 
     // filter
-    document.querySelector('.poto-search').onkeyup = function() {
+    document.querySelector('.poto-prefix').onkeyup = function() {
       while (container.firstChild) {
         container.removeChild(container.firstChild);
       }
 
-      poto(container, "/api/files?query=" + this.value);
+      poto(container, "/api/files?prefix=" + this.value);
     }
 
     // default

@@ -3,14 +3,14 @@ require "poto/file_repository/s3_repository"
 module Poto
   class FileRepository
     class Proxy
-      attr_writer :page, :per_page, :query
+      attr_writer :page, :per_page, :prefix
 
       def initialize(repo)
         @repo = repo
       end
 
       def call
-        @repo.call(query: @query, page: @page, per_page: @per_page)
+        @repo.call(prefix: @prefix, page: @page, per_page: @per_page)
       end
 
       def page(page)
@@ -25,9 +25,9 @@ module Poto
         end
       end
 
-      def query(query)
+      def prefix(prefix)
         tap do |proxy|
-          proxy.query = query
+          proxy.prefix = prefix
         end
       end
     end
@@ -37,7 +37,7 @@ module Poto
         Proxy.new(S3Repository.new(bucket: ENV["AWS_S3_BUCKET"]))
       end
 
-      delegate :page, :per_page, :query, to: :proxy
+      delegate :page, :per_page, :prefix, to: :proxy
     end
   end
 end
