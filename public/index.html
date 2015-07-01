@@ -36,7 +36,11 @@
 
   <script>
     function poto(container, page) {
-      var request = new XMLHttpRequest();
+      if (this.request) {
+        this.request.abort();
+      }
+
+      this.request = new XMLHttpRequest();
 
       request.open("GET", page, true);
 
