@@ -2,36 +2,60 @@
 <html>
 <body>
   <input type="text" class="poto-prefix" placeholder="filter by prefix...">
-  <section class=poto>
-
-  </section>
-
+  <section class="poto row-4 clearfix"></section>
   <style>
-    body {
-      margin:           0;
-      background-color: #111;
-    }
+  /* resets */
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
+  .clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 
-    .poto-prefix {
-      width:       100%;
-      line-height: 3em;
-      font-size:   2.5em;
-    }
+  /* input */
+  .poto-prefix {
+    width:       100%;
+    line-height: 3em;
+    font-size:   2.5em;
+  }
 
-    .poto {
-      line-height: 0;
+  /* grid */
+  .row {
+    margin: 0 -10px;
+    margin-bottom: 20px;
+  }
+  .row:last-child {
+    margin-bottom: 0;
+  }
+  [class*="col-"] {
+    padding: 10px;
+  }
+  @media all and ( min-width: 600px ) {
+    .col-2-3 {
+      float: left;
+      width: 66.66%;
     }
-
-    .poto a {
-      display:     inline-block;
-      width:       25%;
-      padding-top: 25%;
-      overflow:    hidden;
-      outline:     1px;
-
-      background-position: 50% 50%;
-      background-repeat:   no-repeat;
+    .col-1-2 {
+      float: left;
+      width: 50%;
     }
+    .col-1-3 {
+      float: left;
+      width: 33.33%;
+    }
+    .col-1-4 {
+      float: left;
+      width: 25%;
+    }
+    .col-1-8 {
+      float: left;
+      width: 12.5%;
+    }
+  }
   </style>
 
   <script>
@@ -52,12 +76,14 @@
           json._embedded.files.forEach(function(file, i) {
             var link                   = document.createElement("a");
             link.href                  = file._links.file.href;
-            link.target                = "_blank"
+            link.target                = "_blank";
             link.style.backgroundImage = "url(/ajax-loader.gif)";
+            link.className             = "col-1-4";
 
             image = new Image();
             image.onload = function() {
               link.style.backgroundImage = "url(" + this.src + ")";
+              link.style.height          = this.height + "px";
             };
             image.onerror = function() {
               link.parentNode.removeChild(link);
