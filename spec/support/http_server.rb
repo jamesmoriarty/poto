@@ -5,6 +5,6 @@ def http_server(port, root_path, &block)
   server.mount("/", WEBrick::HTTPServlet::FileHandler, root_path)
   thread = Thread.new { server.start }
   block.call(server)
-  server.stop
+  server.shutdown
   thread.join
 end

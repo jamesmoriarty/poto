@@ -1,5 +1,6 @@
 require "spec_helper"
 require "rack/test"
+require "cgi"
 
 describe Poto do
   include Rack::Test::Methods
@@ -25,8 +26,11 @@ describe Poto do
   describe Poto::ImageProxy do
     describe "GET /" do
       let(:root_path) {  File.expand_path("fixtures", File.dirname(__FILE__)) }
+      let(:width)     { 500 }
+      let(:height)    { 500 }
+      let(:src)       { "http://localhost:3000/example.png" }
 
-      subject { get("/?width=500&height=500&src=http%3A%2F%2Flocalhost%3A3000%2Fexample.png") }
+      subject { get("/?width=#{width}&height=#{height}&src=#{CGI.escape(src)}") }
 
       before do
         http_server(3000, root_path) do |server|
@@ -35,6 +39,12 @@ describe Poto do
       end
 
       it { expect(last_response).to be_ok }
+
+      it "return resized image" do
+        file = Tempfile.new('poto')
+        file.write(last_response.body)
+        expect(`identify #{file.path}`).to include("PNG 500x375 500x375+0+0 8-bit sRGB")
+      end
     end
   end
 
