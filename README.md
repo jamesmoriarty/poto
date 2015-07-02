@@ -9,7 +9,7 @@ Turn your AWS S3 bucket into an image gallery. Example: https://aqueous-cliffs-6
 The image resizing proxy is rack middleware and can be used standalone.
 
 ```ruby
-require 'poto'
+require "poto"
 
 # * width  - max width in pixels
 # * height - max height in pixels

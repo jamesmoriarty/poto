@@ -25,7 +25,7 @@ describe Poto do
 
   describe Poto::ImageProxy do
     describe "GET /" do
-      let(:root_path) {  File.expand_path("fixtures", File.dirname(__FILE__)) }
+      let(:root_path) { File.expand_path("fixtures", File.dirname(__FILE__)) }
       let(:width)     { 500 }
       let(:height)    { 500 }
       let(:src)       { "http://localhost:3000/example.png" }
@@ -41,7 +41,7 @@ describe Poto do
       it { expect(last_response).to be_ok }
 
       it "return resized image" do
-        file = Tempfile.new('poto')
+        file = Tempfile.new("poto")
         file.write(last_response.body)
         expect(`identify #{file.path}`).to include("PNG 500x375 500x375+0+0 8-bit sRGB")
       end
