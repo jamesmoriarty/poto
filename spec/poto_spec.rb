@@ -56,7 +56,7 @@ describe Poto do
 
     before do
       allow_any_instance_of(Poto::FileRepository::S3Repository::FileMapper)
-        .to receive(:object)
+        .to receive(:client)
           .and_return(object)
 
       allow_any_instance_of(Poto::FileRepository::S3Repository)

@@ -20,12 +20,12 @@ module Poto
         end
 
         def file_url
-          object.presigned_url(:get, expires_in: 3600)
+          client.presigned_url(:get, expires_in: 3600)
         end
 
         private
 
-        def object
+        def client
           Aws::S3::Object.new(bucket, object.key)
         end
       end
