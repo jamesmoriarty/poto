@@ -30,20 +30,27 @@ describe Poto do
       let(:height)    { 500 }
       let(:src)       { "http://localhost:3000/example.png" }
 
-      subject { get("/?width=#{width}&height=#{height}&src=#{CGI.escape(src)}") }
+      subject(:request) { get("/?width=#{width}&height=#{height}&src=#{CGI.escape(src)}") }
 
       before do
         http_server(3000, root_path) do |server|
-          subject
+          request
         end
       end
 
       it { expect(last_response).to be_ok }
 
-      it "return resized image" do
-        file = Tempfile.new("poto")
-        file.write(last_response.body)
-        expect(`identify #{file.path}`).to include("PNG 500x375 500x375+0+0 8-bit sRGB")
+      context "return resized image" do
+        subject(:image) do
+          file = Tempfile.new("poto")
+          file.write(request.body)
+          file.close
+          MiniMagick::Image.open(file.path)
+        end
+
+        it { expect(image.type).to eq "PNG" }
+        it { expect(image.width).to eq 500 }
+        it { expect(image.height).to eq 375 }
       end
     end
   end
