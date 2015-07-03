@@ -41,12 +41,7 @@ describe Poto do
       it { expect(last_response).to be_ok }
 
       context "return resized image" do
-        subject(:image) do
-          file = Tempfile.new("poto")
-          file.write(request.body)
-          file.close
-          MiniMagick::Image.open(file.path)
-        end
+        subject(:image) { MiniMagick::Image.read(request.body) }
 
         it { expect(image.type).to eq "PNG" }
         it { expect(image.width).to eq 500 }
