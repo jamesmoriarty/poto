@@ -6,5 +6,11 @@ def http_server(port, root_path, &block)
   thread = Thread.new { server.start }
   block.call(server)
   server.shutdown
-  thread.join
+  thread.exit
+end
+
+def cache_path
+  @cache_path ||= begin
+    Dir.mktmpdir
+  end
 end

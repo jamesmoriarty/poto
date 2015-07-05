@@ -1,5 +1,4 @@
 require "sinatra"
-require "tempfile"
 require "tmpdir"
 require "digest"
 require "poto/download"
@@ -37,7 +36,7 @@ module Poto
     end
 
     get("/") do
-      src_path = cache(src.path) { download(src) }
+      src_path = cache(src.path)                        { download(src) }
       dst_path = cache("#{src_path}#{width}x#{height}") { resize(src_path, height, width) }
 
       etag Digest::SHA256.hexdigest(dst_path), kind: :weak

@@ -25,15 +25,22 @@ describe Poto do
 
   describe Poto::ImageProxy do
     describe "GET /" do
-      let(:root_path) { File.expand_path("fixtures", File.dirname(__FILE__)) }
-      let(:width)     { 500 }
-      let(:height)    { 500 }
-      let(:src)       { "http://localhost:3000/example.png" }
+      let(:fixtures_path) { File.expand_path("fixtures", File.dirname(__FILE__)) }
+      let(:port)          { 3000 }
+      let(:width)         { 500 }
+      let(:height)        { 500 }
+      let(:src)           { "http://localhost:3000/example.png" }
 
       subject(:request) { get("/?width=#{width}&height=#{height}&src=#{CGI.escape(src)}") }
 
       before do
-        http_server(3000, root_path) do |server|
+        allow_any_instance_of(Poto::FileCache)
+          .to receive(:path)
+            .and_return(cache_path)
+      end
+
+      before do
+        http_server(port, fixtures_path) do
           request
         end
       end
