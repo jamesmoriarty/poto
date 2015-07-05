@@ -27,10 +27,11 @@ run Poto::ImageProxy
 
 ## Usage
 
-    $ AWS_ACCESS_KEY_ID=? AWS_SECRET_ACCESS_KEY=? AWS_REGION=? AWS_S3_BUCKET=? poto
-    [2015-06-08 20:01:19] INFO  WEBrick 1.3.1
-    [2015-06-08 20:01:19] INFO  ruby 2.1.5 (2014-11-13) [x86_64-darwin13.0]
-    [2015-06-08 20:01:19] INFO  WEBrick::HTTPServer#start: pid=4873 port=8080
+    $ PORT=? AWS_ACCESS_KEY_ID=? AWS_SECRET_ACCESS_KEY=? AWS_REGION=? AWS_S3_BUCKET=? poto
+    Puma 2.11.3 starting...
+    * Min threads: 0, max threads: 16
+    * Environment: development
+    * Listening on tcp://0.0.0.0:9294
 
 ## Development
 
