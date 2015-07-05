@@ -8,9 +8,3 @@ def http_server(port, root_path, &block)
   server.shutdown
   thread.exit
 end
-
-def cache_path
-  @cache_path ||= begin
-    Dir.mktmpdir
-  end
-end

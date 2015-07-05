@@ -9,6 +9,12 @@ describe Poto do
     described_class
   end
 
+  def cache_path
+    @cache_path ||= begin
+      Dir.mktmpdir
+    end
+  end
+
   it "has a version number" do
     expect(Poto::VERSION).not_to be nil
   end
