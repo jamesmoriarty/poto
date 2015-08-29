@@ -15,7 +15,12 @@ module Poto
 
     resource :files do
       get do
-        present FileRepository.prefix(params[:prefix]).page(current_page).per_page(current_per_page).call, with: FilesRepresenter
+        present FileRepository.new(FileRepository::S3Repository, bucket: ENV["AWS_S3_BUCKET"])
+            .prefix(params[:prefix])
+            .page(current_page)
+            .per_page(current_per_page)
+          .call,
+          with: FilesRepresenter
       end
     end
   end

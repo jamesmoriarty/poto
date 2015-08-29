@@ -32,12 +32,17 @@ module Poto
       end
     end
 
-    class << self
-      def proxy
-        Proxy.new(S3Repository.new(bucket: ENV["AWS_S3_BUCKET"]))
-      end
+    attr_reader :backend, :args
 
-      delegate :page, :per_page, :prefix, to: :proxy
+    def initialize(backend, *args)
+      @backend = backend
+      @args    = args
     end
+
+    def proxy
+      Proxy.new(backend.new(*args))
+    end
+
+    delegate :page, :per_page, :prefix, to: :proxy
   end
 end
