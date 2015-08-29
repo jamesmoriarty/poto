@@ -1,4 +1,4 @@
-[![Code Climate](https://codeclimate.com/github/jamesmoriarty/poto/badges/gpa.svg)](https://codeclimate.com/github/jamesmoriarty/poto) [![Test Coverage](https://codeclimate.com/github/jamesmoriarty/poto/badges/coverage.svg)](https://codeclimate.com/github/jamesmoriarty/poto/coverage)
+[![Code Climate](https://codeclimate.com/github/jamesmoriarty/poto/badges/gpa.svg)](https://codeclimate.com/github/jamesmoriarty/poto) [![Test Coverage](https://codeclimate.com/github/jamesmoriarty/poto/badges/coverage.svg)](https://codeclimate.com/github/jamesmoriarty/poto/coverage) [![Build Status](https://travis-ci.org/jamesmoriarty/poto.svg?branch=master)](https://travis-ci.org/jamesmoriarty/poto)
 
 # Poto
 
