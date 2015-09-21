@@ -48,14 +48,13 @@
   </head>
   <body>
     <div id="container" />
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/2.10.0/bluebird.js"></script>
     <script type="text/jsx">
       var ImageGallery = React.createClass({
         getInitialState: function() {
-          return { images: this.props.images, page: this.props.page, disabled: "" };
+          return { images: this.props.images, next_href: this.props.next_href, disabled: "" };
         },
 
         getAsync: function(url){
@@ -74,17 +73,15 @@
         handleClick: function(event) {
           this.setState({ disabled: "disabled" });
 
-          this.getAsync(this.state.page)
-          .bind(this)
-          .then(
+          this.getAsync(this.state.next_href).bind(this).then(
             function(result) {
-              result = JSON.parse(result.target.response);
-              var page   = result._links.next.href;
-              var images = this.state.images.concat(result._embedded.files.map(function(file) {
+              json          = JSON.parse(result.target.response);
+              var next_href = json._links.next.href;
+              var images    = this.state.images.concat(json._embedded.files.map(function(file) {
                 var src  = "/image_proxy?width=500&height=500&src=" + encodeURIComponent(file._links.file.href);
                 return { src: src };
               }));
-              this.setState({ images: images, page: page, disabled: "" });
+              this.setState({ images: images, next_href: next_href, disabled: "" });
             }, function(err) {
               this.setState({ disabled: "" })
             }
@@ -95,7 +92,7 @@
           return (
             <div>
               <ImageList images={this.state.images}/>
-              <button disabled={this.state.disabled} page={this.state.page} onClick={this.handleClick}>Load More</button>
+              <button disabled={this.state.disabled} next_href={this.state.next_href} onClick={this.handleClick}>Load Images</button>
             </div>
           );
         }
@@ -117,7 +114,7 @@
       });
 
       React.render(
-        <ImageGallery images={[]} page={"/api/files?per_page=9"} />,
+        <ImageGallery images={[]} next_href={"/api/files?per_page=9"} />,
         document.getElementById('container')
       );
     </script>
