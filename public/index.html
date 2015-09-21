@@ -1,136 +1,127 @@
 <!DOCTYPE html>
 <html>
-<body>
-  <input type="text" class="poto-prefix" placeholder="filter by prefix...">
-  <section class="poto row-4 clearfix"></section>
-  <style>
-  /* resets */
-  *,
-  *:before,
-  *:after {
-    box-sizing: border-box;
-  }
-  .clearfix:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-
-  /* input */
-  .poto-prefix {
-    width:       100%;
-    line-height: 3em;
-    font-size:   2.5em;
-  }
-
-  .poto a {
-    height:              250px;
-    background-position: 50% 50%;
-    background-repeat:   no-repeat;
-  }
-
-  /* grid */
-  .row {
-    margin: 0 -10px;
-    margin-bottom: 20px;
-  }
-  .row:last-child {
-    margin-bottom: 0;
-  }
-  [class*="col-"] {
-    padding: 10px;
-  }
-  @media all and ( min-width: 600px ) {
-    .col-2-3 {
-      float: left;
-      width: 66.66%;
-    }
-    .col-1-2 {
-      float: left;
-      width: 50%;
-    }
-    .col-1-3 {
-      float: left;
-      width: 33.33%;
-    }
-    .col-1-4 {
-      float: left;
-      width: 25%;
-    }
-    .col-1-8 {
-      float: left;
-      width: 12.5%;
-    }
-  }
-  </style>
-
-  <script>
-    function poto(container, page) {
-      if (this.request) {
-        this.request.abort();
+  <head>
+    <meta http-equiv='Content-type' content='text/html; charset=utf-8'>
+    <title>Poto</title>
+    <style>
+      button {
+        margin-top: 10px;
+        position: relative;
+        vertical-align: top;
+        width: 100%;
+        height: 60px;
+        padding: 0;
+        font-size: 22px;
+        color: white;
+        text-align: center;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+        background: #1abc9c;
+        border: 0;
+        border-bottom: 2px solid #12ab8d;
+        cursor: pointer;
+        -webkit-box-shadow: inset 0 -2px #12ab8d;
+        box-shadow: inset 0 -2px #12ab8d;
       }
+      button:disabled {
+        background: #666;
+        border-bottom: 2px solid #333;
+        -webkit-box-shadow: inset 0 -2px #444;
+      }
+      .imageList {
+        -webkit-column-count: 3;
+        -webkit-column-gap:   0px;
+        -moz-column-count:    3;
+        -moz-column-gap:      0px;
+        line-height:          0;
+        column-count:         3;
+        column-gap:           0px;
+      }
+      .imageList img {
+        width:               100% !important;
+        height:              auto !important;
+        min-height:          280px;
+        background-image:    url(/ajax-loader.gif);
+        background-position: 50% 50%;
+        background-repeat:   no-repeat;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container" />
 
-      this.request = new XMLHttpRequest();
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/2.10.0/bluebird.js"></script>
+    <script type="text/jsx">
+      var ImageGallery = React.createClass({
+        getInitialState: function() {
+          return { images: this.props.images, page: this.props.page, disabled: "" };
+        },
 
-      request.open("GET", page, true);
-
-      request.onload = function() {
-        if (request.status >= 200 && request.status < 400) {
-          var json  = JSON.parse(request.response)
-          page      = json._links.next.href;
-
-          json._embedded.files.forEach(function(file, i) {
-            var link                   = document.createElement("a");
-            link.href                  = file._links.file.href;
-            link.target                = "_blank";
-            link.style.backgroundImage = "url(/ajax-loader.gif)";
-            link.className             = "col-1-4";
-
-            image = new Image();
-            image.onload = function() {
-              link.style.backgroundImage = "url(" + this.src + ")";
-              link.style.height          = this.height + "px";
-            };
-            image.onerror = function() {
-              link.parentNode.removeChild(link);
-            };
-            image.src = "/image_proxy?width=500&height=500&src=" + encodeURIComponent(link.href)
-
-            container.appendChild(link);
+        getAsync: function(url){
+          var xhr = new XMLHttpRequest;
+          return new Promise(function (resolve, reject) {
+              xhr.addEventListener("error", reject);
+              xhr.addEventListener("load", resolve);
+              xhr.open("GET", url);
+              xhr.send(null);
+          }).cancellable().catch(Promise.CancellationError, function(e) {
+              xhr.abort();
+              throw e; //Don't swallow it
           });
+        },
 
-          window.onscroll = function(event) {
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - window.innerHeight * 0.25) {
-              window.onscroll = null;
-              poto(container, page);
+        handleClick: function(event) {
+          this.setState({ disabled: "disabled" });
+
+          this.getAsync(this.state.page)
+          .bind(this)
+          .then(
+            function(result) {
+              result = JSON.parse(result.target.response);
+              var page   = result._links.next.href;
+              var images = this.state.images.concat(result._embedded.files.map(function(file) {
+                var src  = "/image_proxy?width=500&height=500&src=" + encodeURIComponent(file._links.file.href);
+                return { src: src };
+              }));
+              this.setState({ images: images, page: page, disabled: "" });
+            }, function(err) {
+              this.setState({ disabled: "" })
             }
-          };
-        } else {
-          // request error
+          );
+        },
+
+        render: function() {
+          return (
+            <div>
+              <ImageList images={this.state.images}/>
+              <button disabled={this.state.disabled} page={this.state.page} onClick={this.handleClick}>Load More</button>
+            </div>
+          );
         }
-      };
+      });
 
-      request.onerror = function() {
-        // connection error
-      };
+      var ImageList = React.createClass({
+        render: function() {
+          var imageNodes = this.props.images.map(function (image) {
+            return (
+              <img key={image.src} src={image.src} />
+            );
+          });
+          return (
+            <div className="imageList">
+              {imageNodes}
+            </div>
+          );
+        }
+      });
 
-      request.send();
-    }
-
-    // main
-    var container = document.querySelector('.poto');
-
-    // filter
-    document.querySelector('.poto-prefix').onkeyup = function() {
-      while (container.firstChild) {
-        container.removeChild(container.firstChild);
-      }
-
-      poto(container, "/api/files?prefix=" + this.value);
-    }
-
-    // default
-    poto(container, "/api/files");
-  </script>
-</body>
+      React.render(
+        <ImageGallery images={[]} page={"/api/files?per_page=9"} />,
+        document.getElementById('container')
+      );
+    </script>
+  </body>
 </html>

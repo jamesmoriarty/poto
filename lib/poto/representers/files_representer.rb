@@ -17,8 +17,8 @@ module Poto
       url_for opts, "/files", page: page
     end
 
-    link :next do |opts|
-      url_for opts, "/files", page: next_page if next_page
+    link :next do |opts, helpers = opts[:env]["api.endpoint"]|
+      url_for opts, "/files", page: next_page, per_page: helpers.current_per_page if next_page
     end
   end
 end
