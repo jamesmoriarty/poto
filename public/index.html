@@ -59,7 +59,7 @@
               var next_href = json._links.next.href;
               var images    = this.state.images.concat(json._embedded.files.map(function(file) {
                 var src  = "/image_proxy?width=500&height=500&src=" + encodeURIComponent(file._links.file.href);
-                return { src: src };
+                return { name: file.name, src: src };
               }));
               this.setState({ images: images, next_href: next_href, disabled: "" });
             }, function(err) {
@@ -82,10 +82,10 @@
         render: function() {
           var imageNodes = this.props.images.map(function (image) {
             return (
-              <div class=image>
+              <div className="image">
                 <img key={image.src} src={image.src} />
-                <div class="desc">{image.src}</div>
-              </div
+                <div className="desc">{image.name}</div>
+              </div>
             );
           });
           return (
