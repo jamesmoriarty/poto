@@ -3,7 +3,7 @@ require "poto/file_repository/s3_repository/file_mapper"
 module Poto
   class FileRepository
     class S3Repository
-      class FilesMapper
+      class FileCollectionMapper
         attr_reader :objects, :bucket
 
         def initialize(objects, bucket)
