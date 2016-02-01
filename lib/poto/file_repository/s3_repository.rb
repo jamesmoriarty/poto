@@ -1,5 +1,5 @@
 require "aws-sdk"
-require "poto/file_repository/s3_repository/files_mapper"
+require "poto/file_repository/s3_repository/file_collection_mapper"
 
 module Poto
   class FileRepository
@@ -18,7 +18,7 @@ module Poto
           prefix:   prefix,
         )
 
-        FilesMapper.new(response, bucket)
+        FileCollectionMapper.new(response, bucket)
       end
 
       private
