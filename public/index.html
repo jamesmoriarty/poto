@@ -7,7 +7,7 @@
       .imageList * {
         font-family: Arial, Helvetica, sans-serif;
       }
-    
+
       .imageList .image {
         margin: 5px;
         border: 1px solid #ccc;
@@ -87,7 +87,9 @@
           var imageNodes = this.props.images.map(function (image) {
             return (
               <div className="image">
-                <img key={image.src} src={image.src} />
+                <a target="_blank" href={image.src}>
+                  <img key={image.src} src={image.src} />
+                </a>
                 <div className="desc">{image.name}</div>
               </div>
             );
