@@ -4,45 +4,25 @@
     <meta http-equiv='Content-type' content='text/html; charset=utf-8'>
     <title>Poto</title>
     <style>
-      button {
-        margin-top: 10px;
-        position: relative;
-        vertical-align: top;
+      .imageList .image {
+        margin: 5px;
+        border: 1px solid #ccc;
+        float: left;
+        width: 180px;
+      }
+
+      .imageList .image:hover {
+        border: 1px solid #777;
+      }
+
+      .imageList .image img {
         width: 100%;
-        height: 60px;
-        padding: 0;
-        font-size: 22px;
-        color: white;
+        height: auto;
+      }
+
+      .imageList .image .desc {
+        padding: 15px;
         text-align: center;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-        background: #1abc9c;
-        border: 0;
-        border-bottom: 2px solid #12ab8d;
-        cursor: pointer;
-        -webkit-box-shadow: inset 0 -2px #12ab8d;
-        box-shadow: inset 0 -2px #12ab8d;
-      }
-      button:disabled {
-        background: #666;
-        border-bottom: 2px solid #333;
-        -webkit-box-shadow: inset 0 -2px #444;
-      }
-      .imageList {
-        -webkit-column-count: 1;
-        -webkit-column-gap:   0px;
-        -moz-column-count:    1;
-        -moz-column-gap:      0px;
-        line-height:          0;
-        column-count:         1;
-        column-gap:           0px;
-      }
-      .imageList img {
-        width:               100% !important;
-        height:              auto !important;
-        min-height:          280px;
-        background-image:    url(/ajax-loader.gif);
-        background-position: 50% 50%;
-        background-repeat:   no-repeat;
       }
     </style>
   </head>
@@ -102,7 +82,10 @@
         render: function() {
           var imageNodes = this.props.images.map(function (image) {
             return (
-              <img key={image.src} src={image.src} />
+              <div class=image>
+                <img key={image.src} src={image.src} />
+                <div class=desc>{image.src}</div>
+              </div
             );
           });
           return (
