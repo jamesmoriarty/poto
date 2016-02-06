@@ -5,7 +5,7 @@ require "poto/helpers/url_helper"
 require "poto/representers/file_representer"
 
 module Poto
-  module FilesRepresenter
+  module FileCollectionRepresenter
     include Roar::JSON::HAL
     include Roar::Hypermedia
     include Grape::Roar::Representer
