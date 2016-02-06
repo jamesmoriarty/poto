@@ -2,7 +2,6 @@ require "grape"
 require "grape/roar"
 require "poto/helpers/url_helper"
 require "poto/file_repository/proxy"
-require "poto/file_repository/s3_repository"
 require "poto/representers/file_representer"
 require "poto/representers/file_collection_representer"
 

@@ -1,5 +1,6 @@
 require "bundler/setup"
 require "poto"
+require "poto/file_repository/s3_repository"
 
 backend = Poto::FileRepository::S3Repository.new(bucket: ENV["AWS_S3_BUCKET"])
 
