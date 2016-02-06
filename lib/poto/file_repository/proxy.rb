@@ -1,7 +1,5 @@
-require "poto/file_repository/s3_repository"
-
 module Poto
-  class FileRepository
+  module FileRepository
     class Proxy
       attr_writer :page, :per_page, :prefix
 
@@ -31,18 +29,5 @@ module Poto
         end
       end
     end
-
-    attr_reader :backend, :args
-
-    def initialize(backend, *args)
-      @backend = backend
-      @args    = args
-    end
-
-    def proxy
-      Proxy.new(backend.new(*args))
-    end
-
-    delegate :page, :per_page, :prefix, to: :proxy
   end
 end

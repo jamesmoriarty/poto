@@ -69,6 +69,8 @@ describe Poto do
     let(:object) { Aws::S3::Object.new(bucket, "example.png", stub_responses: true) }
     let(:client) { Aws::S3::Client.new(stub_responses: true) }
 
+    subject(:app) { Poto::API.new(Poto::FileRepository::S3Repository.new(bucket: ENV["AWS_S3_BUCKET"])) }
+
     before do
       allow_any_instance_of(Poto::FileRepository::S3Repository::FileMapper)
         .to receive(:client)

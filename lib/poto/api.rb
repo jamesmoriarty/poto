@@ -1,7 +1,8 @@
 require "grape"
 require "grape/roar"
 require "poto/helpers/url_helper"
-require "poto/file_repository"
+require "poto/file_repository/proxy"
+require "poto/file_repository/s3_repository"
 require "poto/representers/file_representer"
 require "poto/representers/files_representer"
 
@@ -13,9 +14,15 @@ module Poto
     format       :json
     formatter    :json, Grape::Formatter::Roar
 
+    def initialize(backend)
+      self.class.global_setting(:proxy, FileRepository::Proxy.new(backend))
+
+      super()
+    end
+
     resource :files do
       get do
-        present FileRepository.new(FileRepository::S3Repository, bucket: ENV["AWS_S3_BUCKET"])
+        present global_setting(:proxy)
             .prefix(params[:prefix])
             .page(current_page)
             .per_page(current_per_page)
