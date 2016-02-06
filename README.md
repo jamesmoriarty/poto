@@ -2,7 +2,9 @@
 
 # Poto
 
-Turn your AWS S3 bucket into an image gallery. Example: https://aqueous-cliffs-6127.herokuapp.com/
+Turn your AWS S3 bucket into an image gallery.
+
+Example: https://aqueous-cliffs-6127.herokuapp.com/
 
 ## Poto::ImageProxy
 
@@ -23,6 +25,8 @@ run Poto::ImageProxy
 
 ## Poto::API
 
+As well as the API - query and access the storage backend via hal+json.
+
 ```ruby
 # page     - current page marker.
 # per_page - the max files to display per page.
@@ -38,8 +42,7 @@ run Poto::ImageProxy
 #         "name":"Abstract.jpg",
 #         "size":15198281,
 #         "_links":{
-#           "file":{        "href":"https://poto-098f6bcd4621d373cade4e832627b4f6.s3-ap-southeast-2.amazonaws.com/Abstract.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJL3NJXWH44D3446A%2F20160206%2Fap-southeast-2%2Fs3%2Faws4_request&X-Amz-Date=20160206T091004Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=e8abd66c321cf1fb760dc929033e7486565ad33fa0e5c38642ef8aefdd4820ae"
-#           }
+#           "file":{"href":"https://poto-098f6bcd4621d373cade4e832627b4f6.s3-ap-southeast-2.amazonaws.com/Abstract.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJL3NJXWH44D3446A%2F20160206%2Fap-southeast-2%2Fs3%2Faws4_request&X-Amz-Date=20160206T091004Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=e8abd66c321cf1fb760dc929033e7486565ad33fa0e5c38642ef8aefdd4820ae"}
 #         }
 #       }
 #     ]
