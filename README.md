@@ -11,14 +11,49 @@ The image resizing proxy is rack middleware and can be used standalone.
 ```ruby
 require "poto"
 
-# * width  - max width in pixels
-# * height - max height in pixels
-# * src    - source image url
+# width  - max width in pixels.
+# height - max height in pixels.
+# src    - source image url.
 #
-# @example
+# Examples
 #
-# ?width=250&height=250&src=http%3A%2F%2Fexample.com%2Fimage.png
+# GET /?width=250&height=250&src=http%3A%2F%2Fexample.com%2Fimage.png
 run Poto::ImageProxy
+```
+
+## Poto::API
+
+```ruby
+# page     - current page marker.
+# per_page - the max files to display per page.
+# prefix   - filter files by name matching prefix.
+#
+# Examples
+#
+# GET /files
+# {
+#   "_embedded":{
+#     "files":[
+#       {
+#         "name":"Abstract.jpg",
+#         "size":15198281,
+#         "_links":{
+#           "file":{        "href":"https://poto-098f6bcd4621d373cade4e832627b4f6.s3-ap-southeast-2.amazonaws.com/Abstract.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJL3NJXWH44D3446A%2F20160206%2Fap-southeast-2%2Fs3%2Faws4_request&X-Amz-Date=20160206T091004Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=e8abd66c321cf1fb760dc929033e7486565ad33fa0e5c38642ef8aefdd4820ae"
+#           }
+#         }
+#       }
+#     ]
+#   },
+#   "_links":{
+#     "self":{
+#       "href":"//aqueous-cliffs-6127.herokuapp.com:443/api/files?page="
+#     },
+#     "next":{
+#       "href":"//aqueous-cliffs-6127.herokuapp.com:443/api/files?page=Death+Valley.jpg&per_page=9"
+#     }
+#   }
+# }
+run Poto::API
 ```
 
 ## Installation
