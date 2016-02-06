@@ -4,7 +4,7 @@ require "poto/helpers/url_helper"
 require "poto/file_repository/proxy"
 require "poto/file_repository/s3_repository"
 require "poto/representers/file_representer"
-require "poto/representers/files_representer"
+require "poto/representers/file_collection_representer"
 
 module Poto
   class API < Grape::API
@@ -27,7 +27,7 @@ module Poto
             .page(current_page)
             .per_page(current_per_page)
           .call,
-          with: FilesRepresenter
+          with: FileCollectionRepresenter
       end
     end
   end
