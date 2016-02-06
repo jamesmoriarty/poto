@@ -9,16 +9,16 @@ module Poto
     end
 
     def cache(key, &set)
-      File.join(path, cache_file(key)).tap do |cache_path|
-        unless File.exists?(cache_path)
-          FileUtils.cp(set.call, cache_path)
+      File.join(path, filename(key)).tap do |file_path|
+        unless File.exists?(file_path)
+          FileUtils.cp(set.call, file_path)
         end
       end
     end
 
     private
 
-    def cache_file(key)
+    def filename(key)
       Digest::SHA256.hexdigest(key)
     end
   end
