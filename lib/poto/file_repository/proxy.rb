@@ -3,12 +3,12 @@ module Poto
     class Proxy
       attr_writer :page, :per_page, :prefix
 
-      def initialize(repo)
-        @repo = repo
+      def initialize(backend)
+        @backend = backend
       end
 
       def call
-        @repo.call(prefix: @prefix, page: @page, per_page: @per_page)
+        @backend.call(prefix: @prefix, page: @page, per_page: @per_page)
       end
 
       def page(page)
