@@ -5,13 +5,23 @@
     <title>Poto</title>
     <style>
       button {
-        float: left;
-        width: 100%;
-        margin-bottom: 1em;
+        float:            left;
+        width:            100%;
+        margin-bottom:    1em;
+        height:           3em;
+        background-color: #fff;
+        border:           solid 1px #ccc;
+        cursor:           pointer;
       }
 
-      .imageList * {
+      button:hover {
+        background-color: #e3e3e3;
+        border:           solid 1px #777;
+      }
+
+      .imageList *, button {
         font-family: Arial, Helvetica, sans-serif;
+        font-size:   1em;
       }
 
       .imageList .image {
