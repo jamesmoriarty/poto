@@ -9,7 +9,7 @@ module Poto
     include Roar::JSON::HAL
     include Roar::Hypermedia
     include Grape::Roar::Representer
-    include UrlHelper
+    include Poto::UrlHelper
 
     collection :files, extend: FileRepresenter, embedded: true
 
