@@ -4,11 +4,12 @@ module Poto
   module FileRepository
     class S3Repository
       class FileMapper
-        attr_reader :object, :bucket
+        attr_reader :object, :bucket, :client
 
-        def initialize(object, bucket)
+        def initialize(object, bucket:, client:)
           @object = object
           @bucket = bucket
+          @client = client
         end
 
         def name
@@ -20,13 +21,7 @@ module Poto
         end
 
         def file_url
-          client.presigned_url(:get, expires_in: 3600)
-        end
-
-        private
-
-        def client
-          Aws::S3::Object.new(bucket, object.key)
+          client.presigned_url(object)
         end
       end
     end
