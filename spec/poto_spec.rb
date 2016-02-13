@@ -9,12 +9,6 @@ describe Poto do
     described_class
   end
 
-  def cache_path
-    @cache_path ||= begin
-      Dir.mktmpdir
-    end
-  end
-
   it "has a version number" do
     expect(Poto::VERSION).not_to be nil
   end
@@ -32,18 +26,12 @@ describe Poto do
   describe Poto::ImageProxy do
     describe "GET /" do
       let(:fixtures_path) { File.expand_path("fixtures", File.dirname(__FILE__)) }
-      let(:port)          { 3000 }
+      let(:port)          { 3003 }
       let(:width)         { 500 }
       let(:height)        { 500 }
-      let(:src)           { "http://localhost:3000/example.png" }
+      let(:src)           { "http://localhost:#{port}/example.png" }
 
       subject(:request) { get("/?width=#{width}&height=#{height}&src=#{CGI.escape(src)}") }
-
-      before do
-        allow_any_instance_of(Poto::FileCache)
-          .to receive(:path)
-            .and_return(cache_path)
-      end
 
       before do
         http_server(port, fixtures_path) do
@@ -64,28 +52,16 @@ describe Poto do
   end
 
   describe Poto::API do
-    let(:bucket) { "abc" }
-    let(:key)    { "example.png" }
-    let(:object) { Aws::S3::Object.new(bucket, "example.png", stub_responses: true) }
-    let(:client) { Aws::S3::Client.new(stub_responses: true) }
-
-    subject(:app) { Poto::API.new(Poto::FileRepository::S3Repository.new(bucket: ENV["AWS_S3_BUCKET"])) }
-
-    before do
-      allow_any_instance_of(Poto::FileRepository::S3Repository::FileMapper)
-        .to receive(:client)
-          .and_return(object)
-
-      allow_any_instance_of(Poto::FileRepository::S3Repository)
-        .to receive(:client)
-          .and_return(client)
-
-      allow_any_instance_of(Poto::FileRepository::S3Repository)
-        .to receive(:bucket)
-          .and_return(bucket)
-
-      client.stub_responses(:list_objects, contents:[{ key: key, size: 0 }])
+    let(:bucket)   { "abc" }
+    let(:key)      { "example.png" }
+    let(:client) do
+      instance_double("S3Client",
+        list_objects:  OpenStruct.new(contents: [ OpenStruct.new(key: key, size: 0) ]),
+        presigned_url: "http://example.com/"
+      )
     end
+
+    subject(:app) { Poto::API.new(Poto::FileRepository::S3Repository.new(bucket: bucket, client: client)) }
 
     describe "GET /files" do
       subject { get("/files") }

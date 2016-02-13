@@ -8,6 +8,7 @@ require "poto/resize"
 module Poto
   class ImageProxy < Sinatra::Base
     set :public_folder, File.join(File.dirname(__FILE__), "..", "..", "public")
+    set :cache_path,    Dir.tmpdir
 
     helpers do
       def src
@@ -23,7 +24,7 @@ module Poto
       end
 
       def cache(key, &set)
-        FileCache.new(path: Dir.tmpdir).cache(key, &set)
+        FileCache.new(path: settings.cache_path).cache(key, &set)
       end
 
       def download(uri)
