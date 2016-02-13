@@ -26,7 +26,7 @@ describe Poto do
   describe Poto::ImageProxy do
     describe "GET /" do
       let(:fixtures_path) { File.expand_path("fixtures", File.dirname(__FILE__)) }
-      let(:port)          { 3003 }
+      let(:port)          { 3000 + rand(1000) }
       let(:width)         { 500 }
       let(:height)        { 500 }
       let(:src)           { "http://localhost:#{port}/example.png" }
