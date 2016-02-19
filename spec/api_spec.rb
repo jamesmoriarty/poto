@@ -6,8 +6,8 @@ describe Poto::API do
   let(:key)      { "example.png" }
   let(:client) do
     instance_double("S3Client",
-      list_objects:  OpenStruct.new(contents: [ OpenStruct.new(key: key, size: 0) ]),
-      presigned_url: "http://example.com/"
+      objects: OpenStruct.new(contents: [ OpenStruct.new(key: key, size: 0) ]),
+      url:     "http://example.com/"
     )
   end
 

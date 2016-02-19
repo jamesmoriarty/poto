@@ -8,7 +8,7 @@ module Poto
           @bucket = bucket
         end
 
-        def list_objects(prefix:, page:, per_page:)
+        def objects(prefix:, page:, per_page:)
           Aws::S3::Client.new.list_objects(
             bucket:   bucket,
             marker:   page,
@@ -17,7 +17,7 @@ module Poto
           )
         end
 
-        def presigned_url(object)
+        def url(object)
           Aws::S3::Object.new(bucket, object.key).presigned_url(:get, expires_in: 3600)
         end
       end
