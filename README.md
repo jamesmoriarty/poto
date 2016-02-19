@@ -6,8 +6,6 @@ Turn your AWS S3 bucket into an image gallery.
 
 Example: https://aqueous-cliffs-6127.herokuapp.com/
 
-![Screenshot](/doc/Screenshot.png "Screenshot")
-
 ## Web Sequence Diagrams
 
 ![Poto](/doc/Poto.png "Poto")
