@@ -21,7 +21,7 @@ module Poto
         end
 
         def file_url
-          client.presigned_url(object)
+          client.url(object)
         end
       end
     end

@@ -13,7 +13,7 @@ module Poto
       end
 
       def call(prefix:, page:, per_page:)
-        objects = client.list_objects(
+        objects = client.objects(
           page:     page,
           per_page: per_page,
           prefix:   prefix,
