@@ -1,7 +1,7 @@
 module Poto
   module FileRepository
     class S3Repository
-      class S3Client
+      class Client
         attr_reader :bucket
 
         def initialize(bucket)

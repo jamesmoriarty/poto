@@ -1,5 +1,5 @@
 require "aws-sdk"
-require "poto/file_repository/s3_repository/s3_client"
+require "poto/file_repository/s3_repository/client"
 require "poto/file_repository/s3_repository/file_collection_mapper"
 
 module Poto
@@ -7,7 +7,7 @@ module Poto
     class S3Repository
       attr_reader :bucket, :client
 
-      def initialize(bucket:, client: S3Client.new(bucket))
+      def initialize(bucket:, client: Client.new(bucket))
         @bucket = bucket
         @client = client
       end
