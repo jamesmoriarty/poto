@@ -11,7 +11,7 @@ module Poto
 
     helpers do
       def src
-        URI(params["src"])
+        URI(params["src"].gsub(/\A\/\//, "http://"))
       end
 
       def width

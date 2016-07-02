@@ -1,3 +1,5 @@
+$LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
+
 require "bundler/setup"
 require "poto"
 require "poto/file_repository/s3_repository"

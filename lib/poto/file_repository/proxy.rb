@@ -7,8 +7,12 @@ module Poto
         @backend = backend
       end
 
-      def call
-        @backend.call(prefix: @prefix, page: @page, per_page: @per_page)
+      def url(id)
+        @backend.url(id)
+      end
+
+      def all
+        @backend.all(prefix: @prefix, page: @page, per_page: @per_page)
       end
 
       def page(page)

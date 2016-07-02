@@ -4,3 +4,7 @@ web:
     - '9292:9292'
   environment:
     PORT: 9292
+
+test:
+  build: .
+  command: bundle exec rspec

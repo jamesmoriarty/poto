@@ -19,10 +19,6 @@ module Poto
         def size
           object.size
         end
-
-        def file_url
-          client.url(object)
-        end
       end
     end
   end

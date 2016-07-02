@@ -1,14 +1,25 @@
+require "base64"
+
 module Poto
   module UrlHelper
     def url_for(opts, path, query = {})
       request = Grape::Request.new(opts[:env])
 
       URI::Generic.build(
-        host:  request.host,
-        port:  request.port,
-        path:  File.join(opts[:env]["SCRIPT_NAME"], path),
-        query: query.to_param
+        host:   request.host,
+        port:   request.port,
+        path:   File.join(opts[:env]["SCRIPT_NAME"], path),
+        query:  query.to_param,
+        scheme: request.scheme
       ).to_s.gsub(/\?$/, "")
+    end
+
+    def encode(value)
+      URI.escape(Base64.encode64(value))
+    end
+
+    def decode(value)
+      URI.unescape(Base64.decode64(value))
     end
 
     def current_page
