@@ -12,7 +12,11 @@ module Poto
         @client = client
       end
 
-      def call(prefix:, page:, per_page:)
+      def url(key)
+        client.url(key)
+      end
+
+      def all(prefix:, page:, per_page:)
         objects = client.objects(
           page:     page,
           per_page: per_page,

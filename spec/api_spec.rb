@@ -21,4 +21,12 @@ describe Poto::API do
     it { expect(last_response).to be_ok }
     it { expect(last_response_as_json).to be_json_of_files([key]) }
   end
+
+  describe "GET /files/example.png" do
+    subject { get("/files/example.png") }
+
+    before { subject }
+
+    it { expect(last_response).to be_redirect }
+  end
 end

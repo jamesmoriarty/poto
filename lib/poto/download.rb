@@ -1,3 +1,6 @@
+require "open-uri"
+require "poto/ext/open_uri"
+
 module Poto
   class Download
     attr_reader :file, :uri
@@ -7,7 +10,7 @@ module Poto
     end
 
     def call
-      open(uri, "rb") do |src|
+      open(uri) do |src|
         file.write(src.read)
       end
 

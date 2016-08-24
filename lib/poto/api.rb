@@ -25,8 +25,14 @@ module Poto
             .prefix(params[:prefix])
             .page(current_page)
             .per_page(current_per_page)
-          .call,
+          .all,
           with: FileCollectionRepresenter
+      end
+
+      route_param :id do
+        get do
+          redirect global_setting(:proxy).url(decode(params[:id]))
+        end
       end
     end
   end
