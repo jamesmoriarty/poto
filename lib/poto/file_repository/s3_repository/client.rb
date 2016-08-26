@@ -10,12 +10,12 @@ module Poto
           @bucket = bucket
         end
 
-        def objects(prefix:, page:, per_page:)
+        def objects(query:, page:, per_page:)
           Aws::S3::Client.new.list_objects(
             bucket:   bucket,
             marker:   page,
             max_keys: per_page,
-            prefix:   prefix,
+            prefix:   query,
           )
         end
 
