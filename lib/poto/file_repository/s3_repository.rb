@@ -15,11 +15,11 @@ module Poto
         client.url(key)
       end
 
-      def all(query:, page:, per_page:)
+      def all(prefix:, page:, per_page:)
         objects = client.objects(
           page:     page,
           per_page: per_page,
-          prefix:   query,
+          prefix:   prefix,
         )
 
         FileCollectionMapper.new(objects)

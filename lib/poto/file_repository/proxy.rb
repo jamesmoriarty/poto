@@ -12,7 +12,7 @@ module Poto
       end
 
       def all
-        backend.all(query: @query, page: @page, per_page: @per_page)
+        backend.all(prefix: @prefix, page: @page, per_page: @per_page)
       end
 
       def page(page)
@@ -27,9 +27,9 @@ module Poto
         end
       end
 
-      def query(query)
+      def prefix(prefix)
         tap do |proxy|
-          @query = query
+          @prefix = prefix
         end
       end
     end
