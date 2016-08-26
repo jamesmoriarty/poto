@@ -4,18 +4,14 @@ module Poto
   module FileRepository
     class S3Repository
       class FileCollectionMapper
-        attr_reader :objects, :bucket, :client
+        attr_reader :objects
 
-        def initialize(objects, bucket:, client:)
+        def initialize(objects)
           @objects = objects
-          @bucket  = bucket
-          @client  = client
         end
 
         def files
-          objects.contents.map do |object|
-            FileMapper.new(object, bucket: bucket, client: client)
-          end
+          objects.contents.map { |object| FileMapper.new(object) }
         end
 
         def page
