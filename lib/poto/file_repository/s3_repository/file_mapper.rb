@@ -4,12 +4,10 @@ module Poto
   module FileRepository
     class S3Repository
       class FileMapper
-        attr_reader :object, :bucket, :client
+        attr_reader :object
 
-        def initialize(object, bucket:, client:)
+        def initialize(object)
           @object = object
-          @bucket = bucket
-          @client = client
         end
 
         def name

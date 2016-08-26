@@ -23,7 +23,7 @@ module Poto
           prefix:   prefix,
         )
 
-        FileCollectionMapper.new(objects, bucket: bucket, client: client)
+        FileCollectionMapper.new(objects)
       end
     end
   end
