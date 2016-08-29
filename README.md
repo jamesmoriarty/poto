@@ -4,11 +4,13 @@
 
 Turn your AWS S3 bucket into an image gallery.
 
+![Demo GIF](/doc/Demo.gif "Demo GIF")
+
 Example: https://aqueous-cliffs-6127.herokuapp.com/
 
 ## Web Sequence Diagrams
 
-![Poto](/doc/Poto.png "Poto")
+![Web Sequence Diagrams](/doc/Poto.png "Web Sequence Diagrams")
 
 ## Poto::ImageProxy
 
@@ -34,7 +36,7 @@ As well as the API - query and access the storage backend via hal+json.
 ```ruby
 # page     - current page marker.
 # per_page - the max files to display per page.
-# prefix   - filter files by name matching prefix.
+# query   - filter files by name matching query.
 #
 # Examples
 #
