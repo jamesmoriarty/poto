@@ -22,6 +22,7 @@ require "poto"
 # Examples
 #
 # GET /image_proxy?width=500&height=500&src=https%3A%2F%2Faqueous-cliffs-6127.herokuapp.com%3A443%2Fapi%2Ffiles%2FRGVhdGggVmFsbGV5LmpwZw%3D%3D%250A
+
 map("/image_proxy") do
   run Poto::ImageProxy
 end
@@ -33,6 +34,7 @@ As well as the API - query and access the storage backend via hal+json.
 
 ```ruby
 require "poto"
+require "poto/file_repository/s3_repository"
 
 # Examples
 #
@@ -58,6 +60,7 @@ require "poto"
 #         }
 #     }
 # }
+
 backend = Poto::FileRepository::S3Repository.new(bucket: ENV["AWS_S3_BUCKET"])
 
 map("/api") do
