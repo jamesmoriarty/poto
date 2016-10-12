@@ -8,10 +8,6 @@ Turn your AWS S3 bucket into an image gallery.
 
 Example: https://aqueous-cliffs-6127.herokuapp.com/
 
-## Web Sequence Diagrams
-
-![Web Sequence Diagrams](/doc/Poto.png "Web Sequence Diagrams")
-
 ## Poto::ImageProxy
 
 The image resizing proxy is rack middleware and can be used standalone.
