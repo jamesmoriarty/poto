@@ -25,7 +25,7 @@ require "poto"
 #
 # Examples
 #
-# GET /?width=250&height=250&src=http%3A%2F%2Fexample.com%2Fimage.png
+# GET /image_proxy?width=500&height=500&src=https%3A%2F%2Faqueous-cliffs-6127.herokuapp.com%3A443%2Fapi%2Ffiles%2FRGVhdGggVmFsbGV5LmpwZw%3D%3D%250A
 run Poto::ImageProxy
 ```
 
