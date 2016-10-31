@@ -14,6 +14,10 @@ module Poto
       ).to_s.gsub(/\?$/, "")
     end
 
+    def prefix
+      params[:prefix]
+    end
+
     def current_page
       params.fetch(:page, nil)
     end

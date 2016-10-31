@@ -22,7 +22,7 @@ module Poto
     resource :files do
       get do
         present global_setting(:proxy)
-            .prefix(params[:prefix])
+            .prefix(prefix)
             .page(current_page)
             .per_page(current_per_page)
           .all,
