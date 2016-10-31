@@ -15,6 +15,16 @@ module Poto
         def size
           object.size
         end
+
+        def id
+          encode object.key
+        end
+
+        private
+
+        def encode(value)
+          URI.escape Base64.encode64 name
+        end
       end
     end
   end

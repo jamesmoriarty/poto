@@ -22,7 +22,7 @@ module Poto
     resource :files do
       get do
         present global_setting(:proxy)
-            .prefix(params[:prefix])
+            .prefix(prefix)
             .page(current_page)
             .per_page(current_per_page)
           .all,
@@ -31,7 +31,7 @@ module Poto
 
       route_param :id do
         get do
-          redirect global_setting(:proxy).url(decode(params[:id]))
+          redirect global_setting(:proxy).url(params[:id])
         end
       end
     end

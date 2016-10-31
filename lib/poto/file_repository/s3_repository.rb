@@ -11,8 +11,12 @@ module Poto
         @client = client
       end
 
-      def url(key)
-        client.url(key)
+      def decode(value)
+        URI.unescape(Base64.decode64(value))
+      end
+
+      def url(id)
+        client.url(decode(id))
       end
 
       def all(prefix:, page:, per_page:)
