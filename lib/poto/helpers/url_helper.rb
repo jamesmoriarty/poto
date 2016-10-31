@@ -14,14 +14,6 @@ module Poto
       ).to_s.gsub(/\?$/, "")
     end
 
-    def encode(value)
-      URI.escape(Base64.encode64(value))
-    end
-
-    def decode(value)
-      URI.unescape(Base64.decode64(value))
-    end
-
     def current_page
       params.fetch(:page, nil)
     end

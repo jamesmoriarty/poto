@@ -31,7 +31,7 @@ module Poto
 
       route_param :id do
         get do
-          redirect global_setting(:proxy).url(decode(params[:id]))
+          redirect global_setting(:proxy).url(params[:id])
         end
       end
     end
