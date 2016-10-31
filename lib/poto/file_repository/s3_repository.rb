@@ -11,10 +11,6 @@ module Poto
         @client = client
       end
 
-      def decode(value)
-        URI.unescape(Base64.decode64(value))
-      end
-
       def url(id)
         client.url(decode(id))
       end
@@ -27,6 +23,12 @@ module Poto
         )
 
         FileCollectionMapper.new(objects)
+      end
+
+      private
+
+      def decode(value)
+        URI.unescape(Base64.decode64(value))
       end
     end
   end
