@@ -1,3 +1,4 @@
+require "base64"
 require "poto/file_repository/s3_repository/client"
 require "poto/file_repository/s3_repository/file_collection_mapper"
 

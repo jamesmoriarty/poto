@@ -1,19 +1,19 @@
 require "roar/representer"
 require "roar/json"
 require "roar/json/hal"
-require "poto/helpers/url_helper"
+require "poto/helpers"
 
 module Poto
   module FileRepresenter
     include Roar::JSON::HAL
     include Roar::Hypermedia
     include Grape::Roar::Representer
-    include Poto::UrlHelper
+    include Poto::Helpers
 
     property :name
     property :size
 
-    link :file do |opts, helpers = opts[:env]["api.endpoint"]|
+    link :file do |opts|
       url_for opts, "/files/#{id}"
     end
   end
