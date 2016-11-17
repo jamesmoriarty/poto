@@ -1,3 +1,5 @@
+require "base64"
+
 module Poto
   module FileRepository
     class S3Repository

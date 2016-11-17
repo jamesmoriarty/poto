@@ -1,7 +1,5 @@
-require "base64"
-
 module Poto
-  module UrlHelper
+  module Helpers
     def url_for(opts, path, query = {})
       request = Grape::Request.new(opts[:env])
 
@@ -18,11 +16,11 @@ module Poto
       params[:prefix]
     end
 
-    def current_page
-      params.fetch(:page, nil)
+    def page
+      params[:page]
     end
 
-    def current_per_page
+    def per_page
       params.fetch(:per_page, 25).to_i
     end
   end
