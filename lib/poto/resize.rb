@@ -9,11 +9,11 @@ module Poto
     end
 
     def call
-      MiniMagick::Image.open(path).tap do |image|
-        image.resize([width, height].compact.join(?x))
-        image.format("png")
-        image.write(path)
-      end.path
+      image = MiniMagick::Image.open(path)
+      image.resize([width, height].compact.join(?x))
+      image.format("png")
+      image.write(path)
+      image.path
     end
   end
 end
