@@ -11,7 +11,7 @@ describe Poto::API do
     )
   end
 
-  subject(:app) { Poto::API.new(Poto::FileRepository::S3Repository.new(bucket: bucket, client: client)) }
+  subject(:app) { Poto::API.configure(repository: Poto::FileRepository::S3Repository.new(bucket: bucket, client: client)) }
 
   describe "GET /files" do
     subject { get("/files") }

@@ -7,4 +7,6 @@ web:
 
 test:
   build: .
+  volumes:
+    - '.:/app'
   command: bundle exec rspec
