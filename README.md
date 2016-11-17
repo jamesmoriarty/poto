@@ -61,10 +61,10 @@ require "poto/file_repository/s3_repository"
 #     }
 # }
 
-backend = Poto::FileRepository::S3Repository.new(bucket: ENV["AWS_S3_BUCKET"])
+repository = Poto::FileRepository::S3Repository.new(bucket: ENV["AWS_S3_BUCKET"])
 
 map("/api") do
-  run Poto::API.new(backend)
+  run Poto::API.configure(repository: repository)
 end
 ```
 
