@@ -1,9 +1,9 @@
 require "sinatra"
 require "tmpdir"
 require "digest"
-require "poto/download"
-require "poto/file_cache"
-require "poto/resize"
+require "poto/services/download"
+require "poto/services/file_cache"
+require "poto/services/resize"
 
 module Poto
   class ImageProxy < Sinatra::Base
@@ -23,15 +23,15 @@ module Poto
       end
 
       def cache(key, &set)
-        FileCache.new(path: settings.cache_path).cache(key, &set)
+        Services::FileCache.new(path: settings.cache_path).cache(key, &set)
       end
 
       def download(uri)
-        Download.new(file: Tempfile.new(settings.cache_path), uri: uri).call
+        Services::Download.new(file: Tempfile.new(settings.cache_path), uri: uri).call
       end
 
       def resize(path, height, width)
-        Resize.new(path: path, height: height, width: width).call
+        Services::Resize.new(path: path, height: height, width: width).call
       end
     end
 
