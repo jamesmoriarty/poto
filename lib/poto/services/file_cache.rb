@@ -10,9 +10,10 @@ module Poto
       end
 
       def cache(key, &set)
-        File.join(path, filename(key)).tap do |file_path|
-          unless File.exists?(file_path)
-            FileUtils.cp(set.call, file_path)
+        File.join(path, filename(key)).tap do |cache_path|
+          if !File.exists?(cache_path)
+            file_path = set.call
+            FileUtils.cp(file_path, cache_path)
           end
         end
       end

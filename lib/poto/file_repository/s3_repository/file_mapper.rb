@@ -1,5 +1,7 @@
 require "base64"
 
+require "poto/file_repository/file"
+
 module Poto
   module FileRepository
     class S3Repository
@@ -9,6 +11,12 @@ module Poto
         def initialize(object)
           @object = object
         end
+
+        def call
+          File.new(id, name, size)
+        end
+
+        private
 
         def name
           object.key
@@ -21,8 +29,6 @@ module Poto
         def id
           encode object.key
         end
-
-        private
 
         def encode(value)
           URI.escape Base64.encode64 name
