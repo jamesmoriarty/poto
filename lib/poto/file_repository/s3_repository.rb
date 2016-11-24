@@ -23,7 +23,7 @@ module Poto
           prefix:   prefix,
         )
 
-        FileCollectionMapper.new(objects)
+        FileCollectionMapper.new(objects).call
       end
 
       private

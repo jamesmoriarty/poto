@@ -1,4 +1,5 @@
 require "poto/file_repository/s3_repository/file_mapper"
+require "poto/file_repository/file_collection"
 
 module Poto
   module FileRepository
@@ -10,8 +11,14 @@ module Poto
           @objects = objects
         end
 
+        def call
+          FileCollection.new(files, page, next_page)
+        end
+
+        private
+
         def files
-          objects.contents.map { |object| FileMapper.new(object) }
+          objects.contents.map { |object| FileMapper.new(object).call }
         end
 
         def page
