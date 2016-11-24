@@ -1,14 +1,11 @@
 require "grape"
 require "grape/roar"
-require "poto/helpers"
 require "poto/file_repository/proxy"
 require "poto/representers/file_representer"
 require "poto/representers/file_collection_representer"
 
 module Poto
   class API < Grape::API
-    helpers Helpers
-
     content_type :json, "application/hal+json"
     format       :json
     formatter    :json, Grape::Formatter::Roar
@@ -22,6 +19,32 @@ module Poto
         get do
           redirect global_setting(:proxy).url(params[:id])
         end
+      end
+    end
+
+    helpers do
+      def url_for(opts, path, query = {})
+        request = Grape::Request.new(opts[:env])
+
+        URI::Generic.build(
+          host:   request.host,
+          port:   request.port,
+          path:   File.join(opts[:env]["SCRIPT_NAME"], path),
+          query:  query.to_param,
+          scheme: request.scheme
+        ).to_s.gsub(/\?$/, "")
+      end
+
+      def prefix
+        params[:prefix]
+      end
+
+      def page
+        params[:page]
+      end
+
+      def per_page
+        params.fetch(:per_page, 25).to_i
       end
     end
 
