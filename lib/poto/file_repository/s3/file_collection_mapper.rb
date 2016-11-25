@@ -1,9 +1,9 @@
-require "poto/file_repository/s3_repository/file_mapper"
+require "poto/file_repository/s3/file_mapper"
 require "poto/file_repository/file_collection"
 
 module Poto
   module FileRepository
-    class S3Repository
+    class S3
       class FileCollectionMapper
         attr_reader :objects
 

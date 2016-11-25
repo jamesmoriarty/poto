@@ -2,7 +2,7 @@ require "aws-sdk"
 
 module Poto
   module FileRepository
-    class S3Repository
+    class S3
       class Client
         attr_reader :bucket
 
