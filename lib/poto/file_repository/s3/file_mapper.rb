@@ -4,7 +4,7 @@ require "poto/file_repository/file"
 
 module Poto
   module FileRepository
-    class S3Repository
+    class S3
       class FileMapper
         attr_reader :object
 

@@ -34,7 +34,7 @@ As well as the API - query and access the storage backend via hal+json.
 
 ```ruby
 require "poto"
-require "poto/file_repository/s3_repository"
+require "poto/file_repository/s3"
 
 # Examples
 #
@@ -61,7 +61,7 @@ require "poto/file_repository/s3_repository"
 #     }
 # }
 
-repository = Poto::FileRepository::S3Repository.new(bucket: ENV["AWS_S3_BUCKET"])
+repository = Poto::FileRepository::S3.new(bucket: ENV["AWS_S3_BUCKET"])
 
 map("/api") do
   run Poto::API.configure(repository: repository)
@@ -74,7 +74,7 @@ end
 
 ## Usage
 
-    $ PORT=? AWS_ACCESS_KEY_ID=? AWS_SECRET_ACCESS_KEY=? AWS_REGION=? AWS_S3_BUCKET=? poto
+    $ PORT=? AWS_ACCESS_KEY_ID=? AWS_SECRET_ACCESS_KEY=? AWS_REGION=? AWS_S3_BUCKET=? poto-s3
     Puma 2.11.3 starting...
     * Min threads: 0, max threads: 16
     * Environment: development

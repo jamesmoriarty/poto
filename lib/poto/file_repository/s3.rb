@@ -1,10 +1,10 @@
 require "base64"
-require "poto/file_repository/s3_repository/client"
-require "poto/file_repository/s3_repository/file_collection_mapper"
+require "poto/file_repository/s3/client"
+require "poto/file_repository/s3/file_collection_mapper"
 
 module Poto
   module FileRepository
-    class S3Repository
+    class S3
       attr_reader :bucket, :client
 
       def initialize(bucket:, client: Client.new(bucket))
