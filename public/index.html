@@ -72,7 +72,7 @@
           return { images: this.props.images, next_href: this.props.next_href, disabled: "" };
         },
 
-        getAsync: function(url){
+        getUrl: function(url){
           var xhr = new XMLHttpRequest;
           return new Promise(function (resolve, reject) {
               xhr.addEventListener("error", reject);
@@ -85,20 +85,36 @@
           });
         },
 
-        handleClick: function(event) {
-          this.setState({ disabled: "disabled" });
+        newStateFromResult: function(result) {
+          var url       = "/image_proxy?width=500&height=500&src=";
+          var json      = JSON.parse(result.target.response);
+          var next_href = json._links.next.href;
+          var images    = this.state.images.concat(json._embedded.files.map(function(file) {
+            var src = url + encodeURIComponent(file._links.file.href);
+            return { name: file.name, src: src, href: file._links.file.href };
+          }));
 
-          this.getAsync(this.state.next_href).bind(this).then(
+          return { images: images, next_href: next_href };
+        },
+
+        disableButton: function() {
+          this.setState({ disabled: "disabled" });
+        },
+
+        enableButton: function() {
+          this.setState({ disabled: ""});
+        },
+
+        handleClick: function(event) {
+          this.disableButton();
+
+          this.getUrl(this.state.next_href).bind(this).then(
             function(result) {
-              json          = JSON.parse(result.target.response);
-              var next_href = json._links.next.href;
-              var images    = this.state.images.concat(json._embedded.files.map(function(file) {
-                var src  = "/image_proxy?width=500&height=500&src=" + encodeURIComponent(file._links.file.href);
-                return { name: file.name, src: src, href: file._links.file.href };
-              }));
-              this.setState({ images: images, next_href: next_href, disabled: "" });
-            }, function(err) {
-              this.setState({ disabled: "" })
+              this.setState(this.newStateFromResult(result));
+              this.enableButton();
+            }, function(error) {
+              alert(error);
+              this.enableButton();
             }
           );
         },
