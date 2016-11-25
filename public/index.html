@@ -85,7 +85,7 @@
           });
         },
 
-        newStateFromResult: function(result) {
+        processResult: function(result) {
           var url       = "/image_proxy?width=500&height=500&src=";
           var json      = JSON.parse(result.target.response);
           var href      = json._links.next.href;
@@ -94,7 +94,7 @@
             return { name: file.name, src: src, href: file._links.file.href };
           })
 
-          return { images: this.state.images.concat(newImages), href: href };
+          return this.setState({ images: this.state.images.concat(newImages), href: href });
         },
 
         disableButton: function() {
@@ -110,10 +110,9 @@
 
           this.getUrl(this.state.href).bind(this).then(
             function(result) {
-              this.setState(this.newStateFromResult(result));
+              this.processResult(result)
               this.enableButton();
             }, function(error) {
-              alert(error);
               this.enableButton();
             }
           );
