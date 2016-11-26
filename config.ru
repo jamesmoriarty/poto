@@ -7,11 +7,13 @@ require "poto"
 # repository = Poto::FileRepository::AWS::S3.new(bucket: ENV["AWS_S3_BUCKET"])
 
 require "poto/file_repository/google/cloud/storage"
-client     = Google::Cloud::Storage.new(
+
+bucket = Google::Cloud::Storage.new(
   project: "poto-1266",
   keyfile: "Poto-f69886a81372.json"
-)
-repository = Poto::FileRepository::Google::Cloud::Storage.new(bucket: "poto", client: client)
+).bucket("poto")
+
+repository = Poto::FileRepository::Google::Cloud::Storage.new(bucket: bucket)
 
 map("/") do
   run Poto::App

@@ -10,9 +10,8 @@ module Poto
         class Storage
           attr_reader :bucket, :client
 
-          def initialize(bucket:, client:)
-            @client = client
-            @bucket = client.bucket(bucket)
+          def initialize(bucket:)
+            @bucket = bucket
           end
 
           def url(id)
