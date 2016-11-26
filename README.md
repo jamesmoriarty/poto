@@ -34,7 +34,7 @@ As well as the API - query and access the storage backend via hal+json.
 
 ```ruby
 require "poto"
-require "poto/file_repository/s3"
+require "poto/file_repository/aws/s3"
 
 # Examples
 #
@@ -61,7 +61,7 @@ require "poto/file_repository/s3"
 #     }
 # }
 
-repository = Poto::FileRepository::S3.new(bucket: ENV["AWS_S3_BUCKET"])
+repository = Poto::FileRepository::AWS::S3.new(bucket: ENV["AWS_S3_BUCKET"])
 
 map("/api") do
   run Poto::API.configure(repository: repository)

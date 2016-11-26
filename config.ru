@@ -2,9 +2,9 @@ $LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
 
 require "bundler/setup"
 require "poto"
-# require "poto/file_repository/s3"
+# require "poto/file_repository/aws/s3"
 #
-# repository = Poto::FileRepository::S3.new(bucket: ENV["AWS_S3_BUCKET"])
+# repository = Poto::FileRepository::AWS::S3.new(bucket: ENV["AWS_S3_BUCKET"])
 
 require "poto/file_repository/google/cloud/storage"
 client     = Google::Cloud::Storage.new(
