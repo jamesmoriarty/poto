@@ -7,6 +7,7 @@ gem 'grape',      '~> 0.11'
 gem 'roar',       '~> 1'
 gem 'grape-roar', '~> 0.3'
 gem 'aws-sdk',    '~> 2'
+gem 'google-cloud-storage'
 gem 'mini_magick'
 gem 'puma'
 
