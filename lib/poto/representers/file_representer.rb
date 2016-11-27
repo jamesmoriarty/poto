@@ -12,7 +12,7 @@ module Poto
     property :size
 
     link :file do |opts, helpers = opts[:env]["api.endpoint"]|
-      helpers.url_for opts, "/files/#{URI.escape(Base64.encode64(id))}"
+      helpers.url_for opts, "/files/#{id}"
     end
   end
 end

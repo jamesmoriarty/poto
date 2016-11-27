@@ -17,7 +17,7 @@ module Poto
 
       route_param :id do
         get do
-          redirect global_setting(:proxy).url(id)
+          redirect global_setting(:proxy).url(params[:id])
         end
       end
     end
@@ -33,10 +33,6 @@ module Poto
           query:  query.to_param,
           scheme: request.scheme
         ).to_s.gsub(/\?$/, "")
-      end
-
-      def id
-        URI.unescape(Base64.decode64(params[:id]))
       end
 
       def prefix
