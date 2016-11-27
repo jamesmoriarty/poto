@@ -16,4 +16,4 @@ COPY Gemfile.lock $APP_HOME/Gemfile.lock
 RUN bundle install --jobs $(expr $(cat /proc/cpuinfo | grep processor | wc -l) - 1) --retry 3
 COPY . $APP_HOME
 
-CMD bin/poto-s3
+CMD bin/poto-aws-s3

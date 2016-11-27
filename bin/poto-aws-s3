@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+
+require "rack"
+
+app, options = Rack::Builder.new_from_string <<-EOF
+$LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
+
+require "poto"
+require "poto/file_repository/aws/s3"
+
+repository = Poto::FileRepository::AWS::S3.new(bucket: ENV["AWS_S3_BUCKET"])
+
+map("/") do
+  run Poto::App
+end
+
+map("/image_proxy") do
+  run Poto::ImageProxy
+end
+
+map("/api") do
+  run Poto::API.configure(repository: repository)
+end
+EOF
+
+Rack::Server.start(
+  app:  app,
+  Port: ENV.fetch("PORT", 9292)
+)

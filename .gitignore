@@ -1,3 +1,4 @@
+*.json
 /public/cache/
 /.bundle/
 /.yardoc

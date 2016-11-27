@@ -1,5 +1,5 @@
 require "spec_helper"
-require "poto/file_repository/s3"
+require "poto/file_repository/aws/s3"
 
 describe Poto::API do
   let(:bucket)   { "abc" }
@@ -11,7 +11,7 @@ describe Poto::API do
     )
   end
 
-  subject(:app) { Poto::API.configure(repository: Poto::FileRepository::S3.new(bucket: bucket, client: client)) }
+  subject(:app) { Poto::API.configure(repository: Poto::FileRepository::AWS::S3.new(bucket: bucket, client: client)) }
 
   describe "GET /files" do
     subject { get("/files") }

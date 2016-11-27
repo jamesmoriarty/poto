@@ -7,6 +7,10 @@ web:
 
 test:
   build: .
+  ports:
+    - '9292:9292'
+  environment:
+    PORT: 9292
   volumes:
     - '.:/app'
   command: bundle exec rspec
