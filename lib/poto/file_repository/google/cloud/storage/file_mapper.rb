@@ -29,11 +29,7 @@ module Poto
             end
 
             def id
-              encode file.name
-            end
-
-            def encode(value)
-              URI.escape Base64.encode64 name
+              name
             end
           end
         end
