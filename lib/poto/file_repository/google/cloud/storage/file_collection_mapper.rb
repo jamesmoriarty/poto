@@ -9,7 +9,7 @@ module Poto
       module Cloud
         class Storage
           class FileCollectionMapper
-            attr_reader :files, :page
+            attr_reader :page
 
             def initialize(files, page)
               @files = files
@@ -17,21 +17,17 @@ module Poto
             end
 
             def call
-              FileCollection.new(_files, _page, next_page)
+              FileCollection.new(files, page, next_page)
             end
 
             private
 
-            def _files
-              files.map { |object| FileMapper.new(object).call }
-            end
-
-            def _page
-              page
+            def files
+              @files.map { |file| FileMapper.new(file).call }
             end
 
             def next_page
-              files.token
+              @files.token
             end
           end
         end

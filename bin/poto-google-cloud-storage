@@ -1,17 +1,17 @@
+#!/usr/bin/env ruby
+
+require "rack"
+
+app, options = Rack::Builder.new_from_string <<-EOF
 $LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
 
-require "bundler/setup"
 require "poto"
-# require "poto/file_repository/aws/s3"
-#
-# repository = Poto::FileRepository::AWS::S3.new(bucket: ENV["AWS_S3_BUCKET"])
-
 require "poto/file_repository/google/cloud/storage"
 
 bucket = Google::Cloud::Storage.new(
-  project: "poto-1266",
-  keyfile: "Poto-f69886a81372.json"
-).bucket("poto")
+  project: ENV["GOOGLE_CLOUD_PROJECT_ID"],
+  keyfile: ENV["GOOGLE_CLOUD_KEYFILE"]
+).bucket(ENV["GOOGLE_CLOUD_STORAGE_BUCKET"])
 
 repository = Poto::FileRepository::Google::Cloud::Storage.new(bucket: bucket)
 
@@ -26,3 +26,10 @@ end
 map("/api") do
   run Poto::API.configure(repository: repository)
 end
+
+EOF
+
+Rack::Server.start(
+  app:  app,
+  Port: ENV.fetch("PORT", 9292)
+)

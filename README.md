@@ -74,7 +74,14 @@ end
 
 ## Usage
 
-    $ PORT=? AWS_ACCESS_KEY_ID=? AWS_SECRET_ACCESS_KEY=? AWS_REGION=? AWS_S3_BUCKET=? poto-s3
+    $ PORT=? AWS_ACCESS_KEY_ID=? AWS_SECRET_ACCESS_KEY=? AWS_REGION=? AWS_S3_BUCKET=? poto-aws-s3
+    Puma 2.11.3 starting...
+    * Min threads: 0, max threads: 16
+    * Environment: development
+    * Listening on tcp://0.0.0.0:9294
+
+
+    $ PORT=? GOOGLE_CLOUD_PROJECT_ID=? GOOGLE_CLOUD_KEYFILE=? GOOGLE_CLOUD_STORAGE_BUCKET=? poto-google-cloud-storage
     Puma 2.11.3 starting...
     * Min threads: 0, max threads: 16
     * Environment: development
