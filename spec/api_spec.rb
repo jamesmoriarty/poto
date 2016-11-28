@@ -7,7 +7,7 @@ describe Poto::API do
   let(:client) do
     instance_double("Client",
       objects: OpenStruct.new(contents: [ OpenStruct.new(key: key, size: 0) ]),
-      url:     "http://example.com/example.png"
+      url:     "http://example.com/"
     )
   end
 
@@ -22,11 +22,11 @@ describe Poto::API do
     it { expect(last_response_as_json).to be_json_of_files([key]) }
   end
 
-  describe "GET /files/id" do
-    subject { get("/files/" + Base64.urlsafe_encode64("example.png")) }
+  describe "GET /files/example.png" do
+    subject { get("/files/example.png") }
 
     before { subject }
 
-    it { expect(last_response.location).to eq("http://example.com/example.png") }
+    it { expect(last_response).to be_redirect }
   end
 end
