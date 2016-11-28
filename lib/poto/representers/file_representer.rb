@@ -1,3 +1,4 @@
+require "base64"
 require "roar/representer"
 require "roar/json"
 require "roar/json/hal"
@@ -12,7 +13,7 @@ module Poto
     property :size
 
     link :file do |opts, helpers = opts[:env]["api.endpoint"]|
-      helpers.url_for opts, "/files/#{id}"
+      helpers.url_for opts, "/files/" + Base64.urlsafe_encode64(id)
     end
   end
 end
