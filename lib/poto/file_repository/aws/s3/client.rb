@@ -21,7 +21,10 @@ module Poto
           end
 
           def url(key)
-            Aws::S3::Object.new(bucket, key).presigned_url(:get, expires_in: 3600)
+            Aws::S3::Object.new(
+              bucket,
+              key
+            ).presigned_url(:get, expires_in: 3600)
           end
         end
       end

@@ -15,19 +15,13 @@ module Poto
           end
 
           def url(id)
-            bucket.file(decode(id)).signed_url
+            bucket.file(id).signed_url
           end
 
           def all(prefix:, page:, per_page:)
             files = bucket.files(prefix: prefix, token: page, max: per_page)
 
             FileCollectionMapper.new(files, page).call
-          end
-
-          private
-
-          def decode(value)
-            URI.unescape(Base64.decode64(value))
           end
         end
       end

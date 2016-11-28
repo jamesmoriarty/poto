@@ -28,11 +28,7 @@ module Poto
           end
 
           def id
-            encode object.key
-          end
-
-          def encode(value)
-            URI.escape Base64.encode64 name
+            object.key
           end
         end
       end

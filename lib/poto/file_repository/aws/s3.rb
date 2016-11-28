@@ -14,7 +14,7 @@ module Poto
         end
 
         def url(id)
-          client.url(decode(id))
+          client.url(id)
         end
 
         def all(prefix:, page:, per_page:)
@@ -25,12 +25,6 @@ module Poto
           )
 
           FileCollectionMapper.new(objects).call
-        end
-
-        private
-
-        def decode(value)
-          URI.unescape(Base64.decode64(value))
         end
       end
     end
