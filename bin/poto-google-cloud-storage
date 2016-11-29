@@ -8,12 +8,12 @@ $LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
 require "poto"
 require "poto/file_repository/google/cloud/storage"
 
-bucket = Google::Cloud::Storage.new(
+client = Google::Cloud::Storage.new(
   project: ENV["GOOGLE_CLOUD_PROJECT_ID"],
   keyfile: ENV["GOOGLE_CLOUD_KEYFILE"]
 ).bucket(ENV["GOOGLE_CLOUD_STORAGE_BUCKET"])
 
-repository = Poto::FileRepository::Google::Cloud::Storage.new(bucket: bucket)
+repository = Poto::FileRepository::Google::Cloud::Storage.new(client: client)
 
 map("/") do
   run Poto::App

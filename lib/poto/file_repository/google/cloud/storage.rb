@@ -8,18 +8,22 @@ module Poto
     module Google
       module Cloud
         class Storage
-          attr_reader :bucket, :client
+          attr_reader :client
 
-          def initialize(bucket:)
-            @bucket = bucket
+          def initialize(client:)
+            @client = client
           end
 
           def url(id)
-            bucket.file(id).signed_url
+            client.file(id).signed_url
           end
 
           def all(prefix:, page:, per_page:)
-            files = bucket.files(prefix: prefix, token: page, max: per_page)
+            files = client.files(
+              prefix: prefix,
+              token:  page,
+              max:    per_page
+            )
 
             FileCollectionMapper.new(files, page).call
           end
