@@ -6,7 +6,7 @@ Turn your AWS S3 bucket into an image gallery.
 
 ![Demo GIF](/doc/Demo.gif "Demo GIF")
 
-Example: https://jamesmoriarty-poto.herokuapp.com/
+Example: jamesmoriarty-poto-aws-s3
 
 ## Poto::ImageProxy
 
