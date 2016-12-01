@@ -1,4 +1,4 @@
-require "aws-sdk"
+require 'aws-sdk'
 
 module Poto
   module FileRepository
@@ -16,7 +16,7 @@ module Poto
               bucket:   bucket,
               marker:   page,
               max_keys: per_page,
-              prefix:   prefix,
+              prefix:   prefix
             )
           end
 

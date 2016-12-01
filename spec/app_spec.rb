@@ -1,8 +1,8 @@
-require "spec_helper"
+require 'spec_helper'
 
 describe Poto::App do
-  describe "GET /" do
-    subject { get("/") }
+  describe 'GET /' do
+    subject { get('/') }
 
     before { subject }
 

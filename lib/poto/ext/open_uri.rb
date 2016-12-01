@@ -1,5 +1,7 @@
 module OpenURI
   class << self
-    def redirectable?(*); true; end
+    def redirectable?(*)
+      true
+    end
   end
 end

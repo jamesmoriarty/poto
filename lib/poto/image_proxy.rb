@@ -1,9 +1,9 @@
-require "sinatra"
-require "tmpdir"
+require 'sinatra'
+require 'tmpdir'
 
-require "poto/services/download"
-require "poto/services/file_cache"
-require "poto/services/resize"
+require 'poto/services/download'
+require 'poto/services/file_cache'
+require 'poto/services/resize'
 
 module Poto
   class ImageProxy < Sinatra::Base
@@ -11,15 +11,15 @@ module Poto
 
     helpers do
       def src
-        URI(params["src"].gsub(/\A\/\//, "http://"))
+        URI(params['src'].gsub(%r{\A\/\/}, 'http://'))
       end
 
       def width
-        params["width"].to_i
+        params['width'].to_i
       end
 
       def height
-        params["height"].to_i
+        params['height'].to_i
       end
 
       def cache(key, &set)
@@ -35,7 +35,7 @@ module Poto
       end
     end
 
-    get("/") do
+    get('/') do
       src_path = cache(src.path)                        { download(src) }
       dst_path = cache("#{src_path}#{width}x#{height}") { resize(src_path, height, width) }
 

@@ -1,5 +1,5 @@
-require "poto/file_repository/aws/s3/file_mapper"
-require "poto/file_repository/file_collection"
+require 'poto/file_repository/aws/s3/file_mapper'
+require 'poto/file_repository/file_collection'
 
 module Poto
   module FileRepository

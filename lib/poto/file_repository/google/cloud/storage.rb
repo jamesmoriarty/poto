@@ -1,7 +1,7 @@
-require "base64"
-require "google/cloud/storage"
+require 'base64'
+require 'google/cloud/storage'
 
-require "poto/file_repository/google/cloud/storage/file_collection_mapper"
+require 'poto/file_repository/google/cloud/storage/file_collection_mapper'
 
 module Poto
   module FileRepository

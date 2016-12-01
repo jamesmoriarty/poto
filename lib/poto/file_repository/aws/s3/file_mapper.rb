@@ -1,6 +1,6 @@
-require "base64"
+require 'base64'
 
-require "poto/file_repository/file"
+require 'poto/file_repository/file'
 
 module Poto
   module FileRepository

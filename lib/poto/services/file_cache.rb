@@ -1,4 +1,4 @@
-require "digest"
+require 'digest'
 
 module Poto
   module Services
@@ -9,10 +9,10 @@ module Poto
         @path = path
       end
 
-      def cache(key, &set)
+      def cache(key)
         File.join(path, filename(key)).tap do |cache_path|
-          if !File.exists?(cache_path)
-            file_path = set.call
+          unless File.exist?(cache_path)
+            file_path = yield
             FileUtils.cp(file_path, cache_path)
           end
         end

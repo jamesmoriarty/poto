@@ -1,5 +1,5 @@
-require "open-uri"
-require "poto/ext/open_uri"
+require 'open-uri'
+require 'poto/ext/open_uri'
 
 module Poto
   module Services
@@ -7,7 +7,8 @@ module Poto
       attr_reader :file, :uri
 
       def initialize(file:, uri:)
-        @file, @uri = file, uri
+        @file = file
+        @uri = uri
       end
 
       def call

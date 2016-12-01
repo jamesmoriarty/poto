@@ -1,6 +1,6 @@
-require "base64"
-require "poto/file_repository/aws/s3/client"
-require "poto/file_repository/aws/s3/file_collection_mapper"
+require 'base64'
+require 'poto/file_repository/aws/s3/client'
+require 'poto/file_repository/aws/s3/file_collection_mapper'
 
 module Poto
   module FileRepository
@@ -21,7 +21,7 @@ module Poto
           objects = client.objects(
             page:     page,
             per_page: per_page,
-            prefix:   prefix,
+            prefix:   prefix
           )
 
           FileCollectionMapper.new(objects).call

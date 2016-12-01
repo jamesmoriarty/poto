@@ -1,4 +1,4 @@
-require "poto/file_repository/dsl"
+require 'poto/file_repository/dsl'
 
 module Poto
   module FileRepository

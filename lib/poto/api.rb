@@ -1,13 +1,13 @@
-require "base64"
-require "grape"
-require "grape/roar"
-require "poto/file_repository/proxy"
-require "poto/representers/file_representer"
-require "poto/representers/file_collection_representer"
+require 'base64'
+require 'grape'
+require 'grape/roar'
+require 'poto/file_repository/proxy'
+require 'poto/representers/file_representer'
+require 'poto/representers/file_collection_representer'
 
 module Poto
   class API < Grape::API
-    content_type :json, "application/hal+json"
+    content_type :json, 'application/hal+json'
     format       :json
     formatter    :json, Grape::Formatter::Roar
 
@@ -30,10 +30,10 @@ module Poto
         URI::Generic.build(
           host:   request.host,
           port:   request.port,
-          path:   File.join(opts[:env]["SCRIPT_NAME"], path),
+          path:   File.join(opts[:env]['SCRIPT_NAME'], path),
           query:  query.to_param,
           scheme: request.scheme
-        ).to_s.gsub(/\?$/, "")
+        ).to_s.gsub(/\?$/, '')
       end
 
       def id
