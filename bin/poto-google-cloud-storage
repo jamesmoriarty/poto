@@ -26,7 +26,6 @@ end
 map("/api") do
   run Poto::API.configure(repository: repository)
 end
-
 EOF
 
 Rack::Server.start(

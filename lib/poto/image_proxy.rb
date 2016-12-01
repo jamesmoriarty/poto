@@ -1,6 +1,6 @@
 require "sinatra"
 require "tmpdir"
-require "digest"
+
 require "poto/services/download"
 require "poto/services/file_cache"
 require "poto/services/resize"
