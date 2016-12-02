@@ -81,7 +81,7 @@
               xhr.send(null);
           }).cancellable().catch(Promise.CancellationError, function(e) {
               xhr.abort();
-              throw e; //Don't swallow it
+              throw e;
           });
         },
 
@@ -108,14 +108,7 @@
         handleClick: function(event) {
           this.disableButton();
 
-          this.getUrl(this.state.href).bind(this).then(
-            function(result) {
-              this.processResult(result)
-              this.enableButton();
-            }, function(error) {
-              this.enableButton();
-            }
-          );
+          this.getUrl(this.state.href).then(this.processResult).finally(this.enableButton);
         },
 
         render: function() {
