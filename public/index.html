@@ -123,7 +123,7 @@
 
       var ImageList = React.createClass({
         render: function() {
-          var imageNodes = this.props.images.map(function (image) {
+          var images = this.props.images.map(function (image) {
             return (
               <div className="image">
                 <a target="_blank" href={image.href}>
@@ -135,7 +135,7 @@
           });
           return (
             <div className="imageList">
-              {imageNodes}
+              {images}
             </div>
           );
         }
