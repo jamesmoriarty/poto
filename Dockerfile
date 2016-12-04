@@ -11,9 +11,11 @@ RUN apk add --no-cache git imagemagick make gcc libc-dev libxml2-dev libxslt-dev
 
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
+COPY poto.gemspec $APP_HOME/poto.gemspec
 COPY Gemfile $APP_HOME/Gemfile
 COPY Gemfile.lock $APP_HOME/Gemfile.lock
+COPY lib/poto/version.rb $APP_HOME/lib/poto/version.rb
 RUN bundle install --jobs $(expr $(cat /proc/cpuinfo | grep processor | wc -l) - 1) --retry 3
 COPY . $APP_HOME
 
-CMD bin/poto-aws-s3
+CMD exe/poto-aws-s3
