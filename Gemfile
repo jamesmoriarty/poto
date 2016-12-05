@@ -8,7 +8,6 @@ group 'test' do
   gem 'codeclimate-test-reporter'
   gem 'pry'
   gem 'rack-test'
-  gem 'rake',                     '~> 10.0'
   gem 'rspec'
   gem 'rubocop',                            require: false
   gem 'simplecov'

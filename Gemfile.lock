@@ -1,7 +1,8 @@
 PATH
   remote: .
   specs:
-    poto (0.1.0)
+    poto (2.0.2)
+      activesupport
       aws-sdk
       google-cloud-storage
       grape (~> 0.11)
