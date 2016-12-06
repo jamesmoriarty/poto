@@ -1,3 +1,17 @@
+PATH
+  remote: .
+  specs:
+    poto (2.0.2)
+      activesupport
+      aws-sdk
+      google-cloud-storage
+      grape (~> 0.11)
+      grape-roar (~> 0.3)
+      mini_magick
+      puma
+      roar
+      sinatra
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -170,21 +184,15 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aws-sdk
+  bundler (~> 1.11)
   codeclimate-test-reporter
-  google-cloud-storage
-  grape (~> 0.11)
-  grape-roar (~> 0.3)
-  mini_magick
+  poto!
   pry
-  puma
   rack-test
   rake (~> 10.0)
-  roar
   rspec
   rubocop
   simplecov
-  sinatra
 
 BUNDLED WITH
    1.11.2

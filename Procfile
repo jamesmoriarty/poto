@@ -1,1 +1,1 @@
-web: bundle exec bin/poto-aws-s3
+web: bundle exec exe/poto-aws-s3
