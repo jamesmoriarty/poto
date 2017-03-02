@@ -6,7 +6,17 @@ Turn your AWS S3 bucket into an image gallery.
 
 ![Demo GIF](/doc/Demo.gif "Demo GIF")
 
-Example: jamesmoriarty-poto-aws-s3
+Example: http://jamesmoriarty-poto-aws-s3.herokuapp.com/
+
+## Usage
+
+### S3
+
+    $ PORT=? AWS_ACCESS_KEY_ID=? AWS_SECRET_ACCESS_KEY=? AWS_REGION=? AWS_S3_BUCKET=? poto-aws-s3
+
+### Google Cloud Storage
+
+    $ PORT=? GOOGLE_CLOUD_PROJECT_ID=? GOOGLE_CLOUD_KEYFILE=? GOOGLE_CLOUD_STORAGE_BUCKET=? poto-google-cloud-storage
 
 ## Poto::ImageProxy
 
@@ -71,16 +81,6 @@ end
 ## Installation
 
     $ gem install poto
-
-## Usage
-
-### S3
-
-    $ PORT=? AWS_ACCESS_KEY_ID=? AWS_SECRET_ACCESS_KEY=? AWS_REGION=? AWS_S3_BUCKET=? poto-aws-s3
-
-### Google Cloud Storage
-
-    $ PORT=? GOOGLE_CLOUD_PROJECT_ID=? GOOGLE_CLOUD_KEYFILE=? GOOGLE_CLOUD_STORAGE_BUCKET=? poto-google-cloud-storage
 
 ## Development
 
