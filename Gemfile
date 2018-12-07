@@ -1,11 +1,10 @@
 source 'https://rubygems.org'
 
-ruby '2.3.0'
+ruby '2.5.3'
 
 gemspec
 
 group 'test' do
-  gem 'codeclimate-test-reporter'
   gem 'pry'
   gem 'rack-test'
   gem 'rspec'

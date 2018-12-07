@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'activesupport'
   spec.add_runtime_dependency 'aws-sdk'
   spec.add_runtime_dependency 'google-cloud-storage'
-  spec.add_runtime_dependency 'grape',                '~> 0.11'
+  spec.add_runtime_dependency 'grape',                '~> 1.1.0'
   spec.add_runtime_dependency 'grape-roar',           '~> 0.3'
   spec.add_runtime_dependency 'mini_magick'
   spec.add_runtime_dependency 'puma'
