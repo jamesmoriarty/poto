@@ -121,21 +121,24 @@
         }
       });
 
+      var Image = React.createClass({
+        render: function() {
+          <div className="image">
+            <a target="_blank" href={this.props.href}>
+              <img key={this.props.key} src={this.props.src} />
+            </a>
+            <div className="desc">{this.props.name}</div>
+          </div>
+        }
+      })
+
       var ImageList = React.createClass({
         render: function() {
-          var images = this.props.images.map(function (image) {
-            return (
-              <div className="image">
-                <a target="_blank" href={image.href}>
-                  <img key={image.src} src={image.src} />
-                </a>
-                <div className="desc">{image.name}</div>
-              </div>
-            );
-          });
           return (
             <div className="imageList">
-              {images}
+              {this.props.images.map(function(image, i){
+                return <Image href={image.href} key={i} src={image.src} name={image.name} />
+              })}
             </div>
           );
         }
